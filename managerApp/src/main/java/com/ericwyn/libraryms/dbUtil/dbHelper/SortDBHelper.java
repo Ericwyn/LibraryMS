@@ -1,0 +1,116 @@
+package com.ericwyn.libraryms.dbUtil.dbHelper;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+
+import com.ericwyn.libraryms.dbUtil.DbHelper;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+/**
+ * sortDB图书类别表的帮助类
+ * Created by ericwyn on 17-3-26.
+ */
+
+public class SortDBHelper{
+    private static final String TABLE_NAME="sortDB";
+
+    /**
+     * 增加图书类型
+     * @param context   上下文
+     * @param maps  需要增加图书类型的集合
+     * @return  返回状态代码
+     */
+    public static int addSorts(Context context,ArrayList<HashMap<String,Object>> maps){
+        DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+        for(HashMap<String ,Object> map:maps){
+            int readerId=(int)map.get("sortId");
+            String readerPw=(String)map.get("sortName");
+            ContentValues values=new ContentValues();
+            values.put("sortId",readerId);
+            values.put("sortName",readerPw);
+            db.insert(TABLE_NAME,null,values);
+            values.clear();
+        }
+        return 0;
+    }
+
+    /**
+     * 删除类别的方法
+     * @param context   上下文
+     * @param deleteSortIds   需要删除的类别的Id
+     * @return  返回状态代码
+     */
+
+    public static int deleteSortById(Context context,ArrayList<Integer> deleteSortIds){
+        DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+        for(Integer id:deleteSortIds){
+            String idS=""+id;
+            db.delete(TABLE_NAME,"sortId = ?",new String[]{idS});
+        }
+        return 0;
+    }
+
+
+    /**
+     * 删除类别的方法
+     * @param context   上下文
+     * @param deleteSortNames   需要删除的类别的名称
+     * @return  返回状态代码
+     */
+    public static int deleteSortByName(Context context,ArrayList<String> deleteSortNames){
+        DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+        for(String name:deleteSortNames){
+            db.delete(TABLE_NAME,"sortName = ?",new String[]{name});
+        }
+        return 0;
+    }
+
+//    感觉类别没什么好更新的，那么就不写了吧
+//    /**
+//     * 更新用户密码的方法
+//     * @param context   上下文
+//     * @param readerId  需要修改的id
+//     * @param newPw 新的密码
+//     * @return  返回的状态
+//     */
+//    public static int chancePw(Context context,String readerId,String newPw){
+//        DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
+//        SQLiteDatabase db=dbHelper.getWritableDatabase();
+//        ContentValues values=new ContentValues();
+//        values.put("readerPw",newPw);
+//        db.update(TABLE_NAME,values,"readerId=?",new String[]{readerId});
+//        values.clear();
+//        return 0;
+//    }
+
+
+    /**
+     * 查询所有读者的信息列表(包含读者的id和登录密码)
+     * @param context   上下文
+     * @return  返回的包含map对象的集合
+     */
+    public static ArrayList<HashMap<String,Object>> searchAllSort(Context context){
+        ArrayList<HashMap<String,Object>> maps=new ArrayList<>();
+        DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+        Cursor cursor=db.query(TABLE_NAME,null,null,null,null,null,null);
+        if(cursor.moveToFirst()){
+            do{
+                HashMap<String ,Object> map=new HashMap<>();
+                int readerId=cursor.getInt(cursor.getColumnIndex("sortId"));
+                String readerPw=cursor.getString(cursor.getColumnIndex("sortName"));
+                map.put("sortId",readerId);
+                map.put("sortName",readerPw);
+                maps.add(map);
+            }while (cursor.moveToFirst());
+        }
+        return maps;
+    }
+}
