@@ -9,11 +9,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.ericwyn.libraryms.dbUtil.DataBaseUtil;
+import com.ericwyn.libraryms.dbUtil.dbHelper.BookDBHelper;
+import com.ericwyn.libraryms.dbUtil.dbHelper.ReaderDBHelper;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    private TextView allBookNum;
+    private TextView allReaderNum;
+    private TextView borrowBookNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +27,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        setTitle("书库数据总览");
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -45,6 +51,12 @@ public class MainActivity extends AppCompatActivity
 
     private void initView(){
         DataBaseUtil.dBIni(MainActivity.this);
+        allBookNum=(TextView)findViewById(R.id.tv_allBookNum);
+        allReaderNum=(TextView)findViewById(R.id.tv_allReaderNum);
+        borrowBookNum=(TextView)findViewById(R.id.tv_borrowBookNum);
+        allBookNum.setText(""+BookDBHelper.searchAllBook(this).size());
+        allReaderNum.setText(""+ReaderDBHelper.searchAllReader(this).size());
+        borrowBookNum.setText(""+BookDBHelper.searchAllBook(this).size());
 
 
     }
