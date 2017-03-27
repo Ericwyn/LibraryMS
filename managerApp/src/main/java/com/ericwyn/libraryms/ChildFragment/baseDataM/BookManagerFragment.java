@@ -1,4 +1,4 @@
-package com.ericwyn.libraryms;
+package com.ericwyn.libraryms.ChildFragment.baseDataM;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,15 +7,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ericwyn.libraryms.R;
+
 /**
- * 作为列表显示的Fragment
+ * 图书管理的的childFragment
  * Created by ericwyn on 17-3-27.
  */
 
-public class ListViewFragment extends Fragment {
+public class BookManagerFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View view=inflater.inflate(R.layout.lv_child_fragment,container,false);
+
+        return view;
     }
 }

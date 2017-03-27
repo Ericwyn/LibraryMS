@@ -23,12 +23,17 @@ public class DbHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_sortDB="create table sortDB(" +
             "sortId integer primary key," +
-            "sortName text" +
+            "sortName text  NOT NULL" +
             ")";
 
     private static final String CREATE_readerDB="create table readerDB(" +
             "readerId integer primary key," +
-            "readerPw text" +
+            "readerPw text  NOT NULL" +
+            ")";
+
+    private static final String CREATE_borrowDB="create table borrowDB(" +
+            "readerId integer NOT NULL" +
+            "bookId integer NOT NULL" +
             ")";
 
     private Context mContext;
@@ -46,6 +51,8 @@ public class DbHelper extends SQLiteOpenHelper {
         Log.i("数据库操作","成功创建readDB表");
         db.execSQL(CREATE_sortDB);
         Log.i("数据库操作","成功创建sortDB表");
+        db.execSQL(CREATE_borrowDB);
+        Log.i("数据库操作","成功创建borrowDB表");
     }
 
     @Override

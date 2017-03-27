@@ -12,8 +12,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.ericwyn.libraryms.dbUtil.DataBaseUtil;
+import com.ericwyn.libraryms.dbUtil.dbHelper.BookDBHelper;
+import com.ericwyn.libraryms.dbUtil.dbHelper.ReaderDBHelper;
+import com.ericwyn.libraryms.dbUtil.dbHelper.SortDBHelper;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -51,6 +58,7 @@ public class MainActivity extends AppCompatActivity
 
     private void initView(){
         DataBaseUtil.dBIni(MainActivity.this);
+
         MainFragment mainFragment=new MainFragment();
         FragmentTransaction transaction=fragmentManager.beginTransaction();
         transaction.replace(R.id.content_main_layout,mainFragment);
@@ -112,7 +120,7 @@ public class MainActivity extends AppCompatActivity
             setTitle("新书订购管理");
 
         } else if (id == R.id.nav_introduction) {
-
+            dbini();
         } else if (id == R.id.nav_authod) {
 
         }
@@ -120,6 +128,40 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    private void dbini(){
+
+        ArrayList<HashMap<String ,Object>> maps=new ArrayList<>();
+        for(int i=0;i<7;i++){
+            HashMap<String ,Object> map=new HashMap<>();
+            map.put("readerId",1500502100+i*2);
+            map.put("readerPw","pw"+(1500502100+i*2));
+            maps.add(map);
+        }
+        ReaderDBHelper.addReaders(this,maps);
+
+        maps=new ArrayList<>();
+        for(int i=0;i<10;i++){
+            HashMap<String ,Object> map=new HashMap<>();
+            map.put("sortId",i);
+            map.put("sortName","类别i");
+            maps.add(map);
+        }
+        SortDBHelper.addSorts(this,maps);
+
+        maps=new ArrayList<>();
+        for(int i=0;i<25;i++){
+            HashMap<String ,Object> map=new HashMap<>();
+            map.put("sortId",i%9);
+            map.put("bookId",(20000000+i));
+            map.put("bookName","测试书籍"+(i+1));
+            map.put("bookAllNum",223);
+            map.put("bookOverNum",0);
+            maps.add(map);
+        }
+        BookDBHelper.addBooks(this,maps);
+
+        Toast.makeText(MainActivity.this,"测试数据已经生成",Toast.LENGTH_SHORT).show();
     }
 
     public void switchFragment(Fragment from,Fragment to){

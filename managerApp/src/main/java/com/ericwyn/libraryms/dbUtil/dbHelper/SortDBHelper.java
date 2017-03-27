@@ -109,8 +109,9 @@ public class SortDBHelper{
                 map.put("sortId",readerId);
                 map.put("sortName",readerPw);
                 maps.add(map);
-            }while (cursor.moveToFirst());
+            }while (cursor.moveToNext());
         }
+        cursor.close();
         return maps;
     }
 }

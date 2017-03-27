@@ -120,6 +120,28 @@ public class BookDBHelper {
     }
 
     /**
+     * 因为使用之前已经经过了一次剩余检验，所以默认不会再检验一次,更新书籍的编号
+     * @param context   上下文
+     * @param bookId    书籍id
+     * @return  返回状态码
+     */
+    public static int borrowABookId(Context context,int bookId){
+//        if(isBookOver(context,bookId)!=0) return -1;  //默认不会开启检验
+        DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+//        int bookId      =(int)bookNewMap.get("bookId");
+        int bookOverNum =bookOverNum(context,bookId)-1;
+        ContentValues values=new ContentValues();
+//        values.put("boolId",bookId);
+        values.put("bookOverNum",bookOverNum);
+        db.update(TABLE_NAME,values,"readerId=?",new String[]{""+bookId});
+        values.clear();
+        return 0;
+    }
+
+
+
+    /**
      * 查找并返回所有的书籍信息
      * @param context   上下文
      * @return  返回书籍信息的集合
@@ -145,8 +167,9 @@ public class BookDBHelper {
                 map.put("bookOverNum",bookOverNum);
 
                 maps.add(map);
-            }while (cursor.moveToFirst());
+            }while (cursor.moveToNext());
         }
+        cursor.close();
         return maps;
     }
 
@@ -180,8 +203,46 @@ public class BookDBHelper {
                     maps.add(map);
                 }
 
-            }while (cursor.moveToFirst());
+            }while (cursor.moveToNext());
         }
+        cursor.close();
         return maps;
+    }
+
+    /**
+     * 通过bookId查看书籍是否有剩余的方法
+     * @param bookId 书籍id
+     * @return  验证书籍是否还剩余，返回0表示剩余，返回1表示无剩余，返回2表示书籍不存在，默认返回2
+     */
+    public static int isBookOver(Context context,int bookId){
+        int bookOverNum;
+        if((bookOverNum=bookOverNum(context,bookId))==0){
+            return 1;
+        }else if(bookOverNum>0){
+            return 0;
+        }
+        return 2;
+    }
+
+
+    /**
+     * 查找书籍的剩余数量
+     * @param context   上下文
+     * @param bookId    书籍id
+     * @return  返回的数量,-1代表没有这本书
+     */
+    private static int bookOverNum(Context context,int bookId){
+        DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+        Cursor cursor=db.query(TABLE_NAME,null,null,null,null,null,null);
+        if(cursor.moveToFirst()){
+            do{
+                if(cursor.getInt(cursor.getColumnIndex("bookId"))==bookId){
+                    return cursor.getInt(cursor.getColumnIndex("bookOverNum"));
+                }
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        return -1;
     }
 }

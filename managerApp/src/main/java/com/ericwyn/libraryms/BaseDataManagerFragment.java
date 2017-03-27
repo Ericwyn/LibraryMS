@@ -11,6 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ericwyn.libraryms.ChildFragment.baseDataM.BookManagerFragment;
+import com.ericwyn.libraryms.ChildFragment.baseDataM.ReaderManagerFragment;
+import com.ericwyn.libraryms.ChildFragment.baseDataM.SortManagerFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,9 +51,9 @@ class TabAdapter extends FragmentPagerAdapter{
     String[] titles={"读者管理","图书管理","类别管理"};
     public TabAdapter(FragmentManager fm){
         super(fm);
-        fragmentList.add(new ListViewFragment());
-        fragmentList.add(new MainFragment());
-        fragmentList.add(new ListViewFragment());
+        fragmentList.add(new ReaderManagerFragment());
+        fragmentList.add(new BookManagerFragment());
+        fragmentList.add(new SortManagerFragment());
     }
     @Override
     public CharSequence getPageTitle(int position) {

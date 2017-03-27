@@ -90,10 +90,36 @@ public class ReaderDBHelper{
                 map.put("readerId",readerId);
                 map.put("readerPw",readerPw);
                 maps.add(map);
-            }while (cursor.moveToFirst());
+            }while (cursor.moveToNext());
         }
+        cursor.close();
         return maps;
     }
 
+    /**
+     * 验证读者身份的方法
+     * @param context   上下文
+     * @param readerId  读者id
+     * @param readerPw  密码
+     * @return  返回的状态码，0代表验证正确，1代表密码错误，2代表用户名不存在,默认返回用户不存在
+     */
+    public static int checkReaderPw(Context context,int readerId,String readerPw){
+        DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+        Cursor cursor=db.query(TABLE_NAME,null,null,null,null,null,null);
+        if(cursor.moveToFirst()){
+            do{
+                if(cursor.getInt(cursor.getColumnIndex("readerId"))==readerId){
+                    if(cursor.getString(cursor.getColumnIndex("readerPw")).equals(readerPw)){
+                        return 0;       //代表验证正确
+                    }else {
+                        return 1;       //代表密码错误
+                    }
+                }
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        return 2;                       //代表用户名不存在
+    }
 
 }
