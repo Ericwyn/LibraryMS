@@ -2,6 +2,9 @@ package com.ericwyn.libraryms;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -9,17 +12,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 
 import com.ericwyn.libraryms.dbUtil.DataBaseUtil;
-import com.ericwyn.libraryms.dbUtil.dbHelper.BookDBHelper;
-import com.ericwyn.libraryms.dbUtil.dbHelper.ReaderDBHelper;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    private TextView allBookNum;
-    private TextView allReaderNum;
-    private TextView borrowBookNum;
+
+    private Fragment mContent;
+    private FragmentManager fragmentManager=getSupportFragmentManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("书库数据总览");
+        setTitle("系统概括");
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
 //        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -51,13 +51,11 @@ public class MainActivity extends AppCompatActivity
 
     private void initView(){
         DataBaseUtil.dBIni(MainActivity.this);
-        allBookNum=(TextView)findViewById(R.id.tv_allBookNum);
-        allReaderNum=(TextView)findViewById(R.id.tv_allReaderNum);
-        borrowBookNum=(TextView)findViewById(R.id.tv_borrowBookNum);
-        allBookNum.setText(""+BookDBHelper.searchAllBook(this).size());
-        allReaderNum.setText(""+ReaderDBHelper.searchAllReader(this).size());
-        borrowBookNum.setText(""+BookDBHelper.searchAllBook(this).size());
-
+        MainFragment mainFragment=new MainFragment();
+        FragmentTransaction transaction=fragmentManager.beginTransaction();
+        transaction.replace(R.id.content_main_layout,mainFragment);
+        transaction.commit();
+        mContent=mainFragment;
 
     }
 
@@ -100,12 +98,18 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_main) {
-            // Handle the camera action
+            setTitle("系统概括");
+            MainFragment fragment=new MainFragment();
+            switchFragment(mContent,fragment);
         } else if (id == R.id.nav_dataMaintain) {
-
+            setTitle("基础数据维护");
+            BaseDataManagerFragment fragment=new BaseDataManagerFragment();
+            switchFragment(mContent,fragment);
         } else if (id == R.id.nav_borrowManager) {
+            setTitle("图书借阅管理");
 
         } else if (id == R.id.nav_orderManager) {
+            setTitle("新书订购管理");
 
         } else if (id == R.id.nav_introduction) {
 
@@ -116,5 +120,17 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void switchFragment(Fragment from,Fragment to){
+        if (mContent != to) {
+            mContent = to;
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            if (!to.isAdded()) {	// 先判断是否被add过
+                transaction.hide(from).add(R.id.content_main_layout, to).commit(); // 隐藏当前的fragment，add下一个到Activity中
+            } else {
+                transaction.hide(from).show(to).commit(); // 隐藏当前的fragment，显示下一个
+            }
+        }
     }
 }
