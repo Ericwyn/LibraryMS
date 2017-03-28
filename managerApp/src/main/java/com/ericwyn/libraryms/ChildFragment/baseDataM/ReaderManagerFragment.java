@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ericwyn.libraryms.R;
 import com.ericwyn.libraryms.dbUtil.dbHelper.BorrowDBHelper;
@@ -56,12 +58,10 @@ public class ReaderManagerFragment extends Fragment {
 
         private List<HashMap<String,Object>> dataList;
         private LayoutInflater layoutInflater;
-        private Context context;
 
         public ReaderManagerAdapter(Context context, ArrayList<HashMap<String,Object>> datas) {
             this.layoutInflater=LayoutInflater.from(context);
             this.dataList = datas;
-            this.context=context;
         }
 
 
@@ -72,10 +72,16 @@ public class ReaderManagerFragment extends Fragment {
 
         @Override
         public void onBindViewHolder(VH holder, int position) {
-            int readerId=(int)dataList.get(position).get("readerId");
+            final int readerId=(int)dataList.get(position).get("readerId");
             int borrowNum=(int)dataList.get(position).get("borrowNum");
             holder.readerId.setText(""+readerId);
             holder.borrowNum.setText(""+borrowNum);
+            holder.cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getActivity(),readerId+"被点击",Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         @Override
@@ -84,12 +90,14 @@ public class ReaderManagerFragment extends Fragment {
         }
 
         class VH extends RecyclerView.ViewHolder {
+            private CardView cardView;
             private TextView readerId;
             private TextView borrowNum;
             VH(View itemView) {
                 super(itemView);
                 readerId=(TextView)itemView.findViewById(R.id.readerId_reader_item);
                 borrowNum=(TextView)itemView.findViewById(R.id.borrowBookNum_reader_item);
+                cardView=(CardView)itemView.findViewById(R.id.baseCV_reader_item);
             }
         }
     }

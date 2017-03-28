@@ -60,12 +60,10 @@ public class BookManagerFragment extends Fragment {
 
         private List<HashMap<String,Object>> dataList;
         private LayoutInflater layoutInflater;
-        private Context context;
 
         public BookManagerAdapter(Context context, ArrayList<HashMap<String,Object>> datas) {
             this.layoutInflater=LayoutInflater.from(context);
             this.dataList = datas;
-            this.context=context;
         }
 
         @Override

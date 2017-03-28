@@ -30,8 +30,8 @@ public class SortManagerFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.childlayout_recyclerview_fragment,container,false);
         recyclerView=(RecyclerView) view.findViewById(R.id.rv_child_fragment);
-        recyclerView.setLayoutManager(new LinearLayoutManager(
-                getActivity(), LinearLayoutManager.VERTICAL, false));
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerView.setAdapter(new SortManagerAdapter(getActivity(),getData()));
 
         return view;
@@ -53,12 +53,10 @@ public class SortManagerFragment extends Fragment {
 
         private List<HashMap<String,Object>> dataList;
         private LayoutInflater layoutInflater;
-        private Context context;
 
         public SortManagerAdapter(Context context, ArrayList<HashMap<String,Object>> datas) {
             this.layoutInflater=LayoutInflater.from(context);
             this.dataList = datas;
-            this.context=context;
         }
 
         @Override

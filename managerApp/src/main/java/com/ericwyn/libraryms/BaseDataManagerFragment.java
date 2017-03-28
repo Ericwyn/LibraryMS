@@ -40,6 +40,7 @@ public class BaseDataManagerFragment extends Fragment {
         TabAdapter tabAdapter=new TabAdapter(getChildFragmentManager());
         //然后TabAdapter再和viewPager绑定
         viewPager.setAdapter(tabAdapter);
+        viewPager.setOffscreenPageLimit(2);
         //最后让tabLayout来绑定这个TabAdapter，就搞定了
         tabLayout.setupWithViewPager(viewPager);
         return view;
