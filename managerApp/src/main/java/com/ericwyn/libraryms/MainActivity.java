@@ -155,8 +155,8 @@ public class MainActivity extends AppCompatActivity
             map.put("sortId",i%9);
             map.put("bookId",(20000000+i));
             map.put("bookName","测试书籍"+(i+1));
-            map.put("bookAllNum",223);
-            map.put("bookOverNum",0);
+            map.put("bookAllNum",22);
+            map.put("bookOverNum",22);
             maps.add(map);
         }
         BookDBHelper.addBooks(this,maps);

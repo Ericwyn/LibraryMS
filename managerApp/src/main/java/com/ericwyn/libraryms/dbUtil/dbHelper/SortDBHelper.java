@@ -92,7 +92,7 @@ public class SortDBHelper{
 
 
     /**
-     * 查询所有读者的信息列表(包含读者的id和登录密码)
+     * 查询所有类别
      * @param context   上下文
      * @return  返回的包含map对象的集合
      */
@@ -114,4 +114,25 @@ public class SortDBHelper{
         cursor.close();
         return maps;
     }
+
+    /**
+     * 通过sortId，返回类别的名称，使用时候可能需要先判断是否为null
+     * @param sortId   类别id
+     * @return  返回一个String，可能为null
+     */
+    public static String getSortNameById(Context context,int sortId){
+        DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+        Cursor cursor=db.query(TABLE_NAME,null,null,null,null,null,null);
+        if(cursor.moveToFirst()){
+            do{
+                if(cursor.getInt(cursor.getColumnIndex("sortId"))==sortId){
+                    return cursor.getString(cursor.getColumnIndex("sortName"));
+                }
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        return null;
+    }
+
 }

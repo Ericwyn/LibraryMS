@@ -32,7 +32,7 @@ public class DbHelper extends SQLiteOpenHelper {
             ")";
 
     private static final String CREATE_borrowDB="create table borrowDB(" +
-            "readerId integer NOT NULL" +
+            "readerId integer NOT NULL," +
             "bookId integer NOT NULL" +
             ")";
 

@@ -63,7 +63,7 @@ public class BorrowDBHelper {
      * @param readerId  读者id
      * @return  返回状态码
      */
-    public ArrayList<HashMap<String,Object>> searchBorrowByReaderId(Context context,int readerId){
+    public static ArrayList<HashMap<String,Object>> searchBorrowByReaderId(Context context,int readerId){
         ArrayList<HashMap<String,Object>> maps=new ArrayList<>();
         DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
         SQLiteDatabase db=dbHelper.getWritableDatabase();
@@ -91,7 +91,7 @@ public class BorrowDBHelper {
      * @param bookId  需要查询的书籍的id
      * @return  返回的值是一个List，和增加数据一样
      */
-    public ArrayList<HashMap<String,Object>> searchBorrowByBookId(Context context,int bookId){
+    public static ArrayList<HashMap<String,Object>> searchBorrowByBookId(Context context,int bookId){
         ArrayList<HashMap<String,Object>> maps=new ArrayList<>();
         DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
         SQLiteDatabase db=dbHelper.getWritableDatabase();
