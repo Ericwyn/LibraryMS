@@ -3,6 +3,7 @@ package com.ericwyn.libraryms.ChildFragment.baseDataM;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -79,6 +80,7 @@ public class BookManagerFragment extends Fragment {
             holder.bookName.setText(bookName);
             holder.sortName.setText(sortName);
             holder.bookId.setText(""+bookId);
+
         }
 
         @Override
@@ -90,11 +92,13 @@ public class BookManagerFragment extends Fragment {
             private TextView bookId;
             private TextView bookName;
             private TextView sortName;
+            private ConstraintLayout constraintLayout;
             VH(View itemView) {
                 super(itemView);
                 bookId=(TextView)itemView.findViewById(R.id.bookId_reader_item);
                 bookName=(TextView)itemView.findViewById(R.id.bookName_reader_item);
                 sortName=(TextView)itemView.findViewById(R.id.sortName_reader_item);
+                constraintLayout=(ConstraintLayout)itemView.findViewById(R.id.conslayout_book_item);
             }
         }
     }

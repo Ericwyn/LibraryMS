@@ -3,6 +3,7 @@ package com.ericwyn.libraryms.ChildFragment.baseDataM;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -80,10 +81,12 @@ public class SortManagerFragment extends Fragment {
         class VH extends RecyclerView.ViewHolder {
             private TextView sortId;
             private TextView sortName;
+            private ConstraintLayout constraintLayout;
             VH(View itemView) {
                 super(itemView);
                 sortId=(TextView)itemView.findViewById(R.id.sortId_sort_item);
                 sortName=(TextView)itemView.findViewById(R.id.sortName_sort_item);
+                constraintLayout=(ConstraintLayout)itemView.findViewById(R.id.conslayout_sort_item);
             }
         }
     }

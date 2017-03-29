@@ -3,8 +3,8 @@ package com.ericwyn.libraryms.ChildFragment.baseDataM;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ericwyn.libraryms.R;
 import com.ericwyn.libraryms.dbUtil.dbHelper.BorrowDBHelper;
@@ -76,12 +75,12 @@ public class ReaderManagerFragment extends Fragment {
             int borrowNum=(int)dataList.get(position).get("borrowNum");
             holder.readerId.setText(""+readerId);
             holder.borrowNum.setText(""+borrowNum);
-            holder.cardView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getActivity(),readerId+"被点击",Toast.LENGTH_SHORT).show();
-                }
-            });
+//            holder.cardView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Toast.makeText(getActivity(),readerId+"被点击",Toast.LENGTH_SHORT).show();
+//                }
+//            });
         }
 
         @Override
@@ -90,14 +89,16 @@ public class ReaderManagerFragment extends Fragment {
         }
 
         class VH extends RecyclerView.ViewHolder {
-            private CardView cardView;
+//            private CardView cardView;
             private TextView readerId;
             private TextView borrowNum;
+            private ConstraintLayout constraintLayout;
             VH(View itemView) {
                 super(itemView);
                 readerId=(TextView)itemView.findViewById(R.id.readerId_reader_item);
                 borrowNum=(TextView)itemView.findViewById(R.id.borrowBookNum_reader_item);
-                cardView=(CardView)itemView.findViewById(R.id.baseCV_reader_item);
+//                cardView=(CardView)itemView.findViewById(R.id.baseCV_reader_item);
+                constraintLayout=(ConstraintLayout)itemView.findViewById(R.id.conslayout_reader_item);
             }
         }
     }
