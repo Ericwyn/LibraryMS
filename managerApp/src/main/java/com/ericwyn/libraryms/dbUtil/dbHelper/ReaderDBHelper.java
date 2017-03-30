@@ -25,16 +25,21 @@ public class ReaderDBHelper{
      * @return  返回状态代码
      */
     public static int addReaders(Context context,ArrayList<HashMap<String,Object>> maps){
-        DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
-        SQLiteDatabase db=dbHelper.getWritableDatabase();
-        for(HashMap<String ,Object> map:maps){
-            int readerId=(int)map.get("readerId");
-            String readerPw=(String)map.get("readerPw");
-            ContentValues values=new ContentValues();
-            values.put("readerId",readerId);
-            values.put("readerPw",readerPw);
-            db.insert(TABLE_NAME,null,values);
-            values.clear();
+        try {
+            DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
+            SQLiteDatabase db=dbHelper.getWritableDatabase();
+            for(HashMap<String ,Object> map:maps){
+                int readerId=(int)map.get("readerId");
+                String readerPw=(String)map.get("readerPw");
+                ContentValues values=new ContentValues();
+                values.put("readerId",readerId);
+                values.put("readerPw",readerPw);
+                db.insert(TABLE_NAME,null,values);
+                values.clear();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return -1;
         }
         return 0;
     }
