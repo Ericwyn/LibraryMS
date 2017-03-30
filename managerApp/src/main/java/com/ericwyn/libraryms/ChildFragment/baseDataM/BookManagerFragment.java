@@ -46,7 +46,7 @@ public class BookManagerFragment extends Fragment {
         for(HashMap mapFlag:allBook){
             HashMap<String,Object> map=new HashMap<>();
             String bookName=(String) mapFlag.get("bookName");
-            int bookId=(int)mapFlag.get("bookId");
+            String bookId=(String)mapFlag.get("bookId");
             int sortId=(int)mapFlag.get("sortId");
             String sortName= SortDBHelper.getSortNameById(getActivity(),sortId);
             map.put("bookId",bookId);
@@ -76,10 +76,10 @@ public class BookManagerFragment extends Fragment {
         public void onBindViewHolder(VH holder, int position) {
             String bookName=(String) dataList.get(position).get("bookName");
             String sortName=(String) dataList.get(position).get("sortName");
-            int bookId=(int)dataList.get(position).get("bookId");
+            String bookId=(String)dataList.get(position).get("bookId");
             holder.bookName.setText(bookName);
             holder.sortName.setText(sortName);
-            holder.bookId.setText(""+bookId);
+            holder.bookId.setText(bookId);
 
         }
 

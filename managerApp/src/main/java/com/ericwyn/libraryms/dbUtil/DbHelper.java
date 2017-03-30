@@ -14,7 +14,7 @@ import android.util.Log;
 public class DbHelper extends SQLiteOpenHelper {
     public static final String DB_NAME="userDB";
     private static final String CREATE_bookDB="create table bookDB(" +
-            "bookId integer primary key," +
+            "bookId text primary key," +
             "bookName text," +
             "sortId integer," +
             "bookAllNum integer," +
@@ -33,7 +33,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_borrowDB="create table borrowDB(" +
             "readerId integer NOT NULL," +
-            "bookId integer NOT NULL" +
+            "bookId text NOT NULL" +
             ")";
 
     private Context mContext;

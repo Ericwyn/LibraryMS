@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import com.ericwyn.libraryms.ChildFragment.baseDataM.BookManagerFragment;
 import com.ericwyn.libraryms.ChildFragment.baseDataM.ReaderManagerFragment;
 import com.ericwyn.libraryms.ChildFragment.baseDataM.SortManagerFragment;
+import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +25,15 @@ import java.util.List;
  * Created by ericwyn on 17-3-27.
  */
 
-public class BaseDataManagerFragment extends Fragment {
+public class BaseDataManagerFragment extends Fragment{
+
     private TabLayout tabLayout;
     private ViewPager viewPager;
+    private FloatingActionsMenu floatingActionsMenu;
+    private FloatingActionButton addABook;
+    private FloatingActionButton addASort;
+    private FloatingActionButton addAReader;
+    private FloatingActionButton addByScanner;
 
     @Nullable
     @Override
@@ -37,12 +45,29 @@ public class BaseDataManagerFragment extends Fragment {
         //初始化ViewPager
         viewPager=(ViewPager)view.findViewById(R.id.viewPager_baseDataManagerFragment);
         //新建TabAdapter，在Adapter里面绑定相应的Fragment试图
-        TabAdapter tabAdapter=new TabAdapter(getChildFragmentManager());
+        final TabAdapter tabAdapter=new TabAdapter(getChildFragmentManager());
         //然后TabAdapter再和viewPager绑定
         viewPager.setAdapter(tabAdapter);
         viewPager.setOffscreenPageLimit(2);
         //最后让tabLayout来绑定这个TabAdapter，就搞定了
         tabLayout.setupWithViewPager(viewPager);
+
+        floatingActionsMenu=(FloatingActionsMenu)view.findViewById(R.id.fab_menu_basedataFragment);
+//        floatingActionsMenu
+        addABook=(FloatingActionButton)view.findViewById(R.id.fab_newBook_basedataFragment);
+        addAReader=(FloatingActionButton)view.findViewById(R.id.fab_newReader_basedataFragment);
+        addASort=(FloatingActionButton)view.findViewById(R.id.fab_newSort_basedataFragment);
+        addByScanner=(FloatingActionButton)view.findViewById(R.id.fab_sanner_basedataFragent);
+        addABook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                floatingActionsMenu.toggle();
+
+            }
+        });
+
+
+
         return view;
     }
 }

@@ -144,7 +144,7 @@ public class MainActivity extends AppCompatActivity
         for(int i=0;i<10;i++){
             HashMap<String ,Object> map=new HashMap<>();
             map.put("sortId",i);
-            map.put("sortName","类别i");
+            map.put("sortName","类别"+i);
             maps.add(map);
         }
         SortDBHelper.addSorts(this,maps);
@@ -152,8 +152,8 @@ public class MainActivity extends AppCompatActivity
         maps=new ArrayList<>();
         for(int i=0;i<25;i++){
             HashMap<String ,Object> map=new HashMap<>();
-            map.put("sortId",i%9);
-            map.put("bookId",(20000000+i));
+            map.put("sortId",(i%9));
+            map.put("bookId","BSDN_"+(20000000+i));
             map.put("bookName","测试书籍"+(i+1));
             map.put("bookAllNum",22);
             map.put("bookOverNum",22);

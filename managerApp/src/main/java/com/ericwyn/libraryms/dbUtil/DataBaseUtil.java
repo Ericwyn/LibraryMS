@@ -32,7 +32,7 @@ public class DataBaseUtil {
      * @return      返回的状态码,0代表借书完成，1代表书籍无剩余，2代表无书籍
      *              因为默认是登录了的用户才能调用这个方法，所以也就不用考虑那么多用户密码是否正确了
      */
-    public static int borrowABook(Context context,int readerId,int bookId){
+    public static int borrowABook(Context context,int readerId,String bookId){
 
         //验证书籍是否还剩余，返回0表示剩余，返回1表示无剩余，返回2表示书籍不存在
         int backFlag;

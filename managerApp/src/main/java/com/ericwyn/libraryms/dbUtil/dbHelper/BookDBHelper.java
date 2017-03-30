@@ -28,7 +28,7 @@ public class BookDBHelper {
         DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
         SQLiteDatabase db=dbHelper.getWritableDatabase();
         for(HashMap<String ,Object> map:maps){
-            int bookId      =(int)map.get("bookId");
+            String bookId      =(String)map.get("bookId");
             int sortId      =(int)map.get("sortId");
             String bookName =(String)map.get("bookName");
             int bookAllNum  =(int)map.get("bookAllNum");
@@ -51,12 +51,11 @@ public class BookDBHelper {
      * @param deleteBookIds     需要删除的书籍的bookId的集合
      * @return
      */
-    public static int deleteSortByBookId(Context context,ArrayList<Integer> deleteBookIds){
+    public static int deleteSortByBookId(Context context,ArrayList<String> deleteBookIds){
         DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
         SQLiteDatabase db=dbHelper.getWritableDatabase();
-        for(Integer id:deleteBookIds){
-            String idS=""+id;
-            db.delete(TABLE_NAME,"bookId = ?",new String[]{idS});
+        for(String id:deleteBookIds){
+            db.delete(TABLE_NAME,"bookId = ?",new String[]{id});
         }
         return 0;
     }
@@ -100,7 +99,7 @@ public class BookDBHelper {
      * @param bookNewMap    书籍新的信息map
      * @return  返回状态代码
      */
-    public static int chanceByBookId(Context context,int bookId,HashMap<String,Object> bookNewMap){
+    public static int chanceByBookId(Context context,String bookId,HashMap<String,Object> bookNewMap){
         DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
         SQLiteDatabase db=dbHelper.getWritableDatabase();
 //        int bookId      =(int)bookNewMap.get("bookId");
@@ -114,7 +113,7 @@ public class BookDBHelper {
         values.put("bookName",bookName);
         values.put("bookAllNum",bookAllNum);
         values.put("bookOverNum",bookOverNum);
-        db.update(TABLE_NAME,values,"readerId=?",new String[]{""+bookId});
+        db.update(TABLE_NAME,values,"bookId=?",new String[]{bookId});
         values.clear();
         return 0;
     }
@@ -125,7 +124,7 @@ public class BookDBHelper {
      * @param bookId    书籍id
      * @return  返回状态码
      */
-    public static int borrowABookId(Context context,int bookId){
+    public static int borrowABookId(Context context,String bookId){
 //        if(isBookOver(context,bookId)!=0) return -1;  //默认不会开启检验
         DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
         SQLiteDatabase db=dbHelper.getWritableDatabase();
@@ -134,7 +133,7 @@ public class BookDBHelper {
         ContentValues values=new ContentValues();
 //        values.put("boolId",bookId);
         values.put("bookOverNum",bookOverNum);
-        db.update(TABLE_NAME,values,"readerId=?",new String[]{""+bookId});
+        db.update(TABLE_NAME,values,"readerId=?",new String[]{bookId});
         values.clear();
         return 0;
     }
@@ -154,7 +153,7 @@ public class BookDBHelper {
         if(cursor.moveToFirst()){
             do{
                 HashMap<String ,Object> map=new HashMap<>();
-                int bookId      =cursor.getInt(cursor.getColumnIndex("bookId"));
+                String bookId   =cursor.getString(cursor.getColumnIndex("bookId"));
                 int sortId      =cursor.getInt(cursor.getColumnIndex("sortId"));
                 String bookName =cursor.getString(cursor.getColumnIndex("bookName"));
                 int bookAllNum  =cursor.getInt(cursor.getColumnIndex("bookAllNum"));
@@ -188,7 +187,7 @@ public class BookDBHelper {
             do{
                 if(cursor.getInt(cursor.getColumnIndex("sortId"))==searchSortId){
                     HashMap<String ,Object> map=new HashMap<>();
-                    int bookId      =cursor.getInt(cursor.getColumnIndex("bookId"));
+                    String bookId   =cursor.getString(cursor.getColumnIndex("bookId"));
                     int sortId      =cursor.getInt(cursor.getColumnIndex("sortId"));
                     String bookName =cursor.getString(cursor.getColumnIndex("bookName"));
                     int bookAllNum  =cursor.getInt(cursor.getColumnIndex("bookAllNum"));
@@ -214,7 +213,7 @@ public class BookDBHelper {
      * @param bookId 书籍id
      * @return  验证书籍是否还剩余，返回0表示剩余，返回1表示无剩余，返回2表示书籍不存在，默认返回2
      */
-    public static int isBookOver(Context context,int bookId){
+    public static int isBookOver(Context context,String bookId){
         int bookOverNum;
         if((bookOverNum=bookOverNum(context,bookId))==0){
             return 1;
@@ -231,13 +230,13 @@ public class BookDBHelper {
      * @param bookId    书籍id
      * @return  返回的数量,-1代表没有这本书
      */
-    private static int bookOverNum(Context context,int bookId){
+    private static int bookOverNum(Context context,String bookId){
         DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
         SQLiteDatabase db=dbHelper.getWritableDatabase();
         Cursor cursor=db.query(TABLE_NAME,null,null,null,null,null,null);
         if(cursor.moveToFirst()){
             do{
-                if(cursor.getInt(cursor.getColumnIndex("bookId"))==bookId){
+                if(cursor.getString(cursor.getColumnIndex("bookId")).equals(bookId)){
                     return cursor.getInt(cursor.getColumnIndex("bookOverNum"));
                 }
             }while (cursor.moveToNext());

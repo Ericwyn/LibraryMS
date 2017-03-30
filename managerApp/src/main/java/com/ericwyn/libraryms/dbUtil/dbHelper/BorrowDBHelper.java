@@ -51,8 +51,8 @@ public class BorrowDBHelper {
         SQLiteDatabase db=dbHelper.getWritableDatabase();
         for(HashMap map:maps){
             int readerId=(int)map.get("readerId");
-            int bookId=(int)map.get("bookId");
-            db.delete(TABLE_NAME,"readerId = ? AND bookId= ?",new String[]{""+readerId,""+bookId});
+            String bookId=(String)map.get("bookId");
+            db.delete(TABLE_NAME,"readerId = ? AND bookId= ?",new String[]{""+readerId,bookId});
         }
         return 0;
     }
@@ -91,16 +91,16 @@ public class BorrowDBHelper {
      * @param bookId  需要查询的书籍的id
      * @return  返回的值是一个List，和增加数据一样
      */
-    public static ArrayList<HashMap<String,Object>> searchBorrowByBookId(Context context,int bookId){
+    public static ArrayList<HashMap<String,Object>> searchBorrowByBookId(Context context,String bookId){
         ArrayList<HashMap<String,Object>> maps=new ArrayList<>();
         DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
         SQLiteDatabase db=dbHelper.getWritableDatabase();
         Cursor cursor=db.query(TABLE_NAME,null,null,null,null,null,null);
 
         if(cursor.moveToFirst()){
-            int bookIdFlag=0;
+            String bookIdFlag="";
             do{
-                if((bookIdFlag=cursor.getInt(cursor.getColumnIndex("bookId")))==bookId){
+                if((bookIdFlag=cursor.getString(cursor.getColumnIndex("bookId"))).equals(bookId)){
                     HashMap<String ,Object> map=new HashMap<>();
                     String readerId=cursor.getString(cursor.getColumnIndex("readerId"));
                     map.put("readerId",readerId);
