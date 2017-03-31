@@ -39,9 +39,11 @@ public class BorrowDBHelper {
                 values.clear();
             }
             db.close();
+            dbHelper.close();
             return 0;
         }catch (Exception e){
             db.close();
+            dbHelper.close();
             e.printStackTrace();
             return -1;
         }
@@ -62,6 +64,7 @@ public class BorrowDBHelper {
             db.delete(TABLE_NAME,"readerId = ? AND bookId= ?",new String[]{""+readerId,bookId});
         }
         db.close();
+        dbHelper.close();
         return 0;
     }
 
@@ -90,6 +93,7 @@ public class BorrowDBHelper {
             }while (cursor.moveToNext());
         }
         cursor.close();
+        dbHelper.close();
         return maps;
     }
 
@@ -118,6 +122,7 @@ public class BorrowDBHelper {
             }while (cursor.moveToNext());
         }
         cursor.close();
+        dbHelper.close();
         return maps;
     }
 

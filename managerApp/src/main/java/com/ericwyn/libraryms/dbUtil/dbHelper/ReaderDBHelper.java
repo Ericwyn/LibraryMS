@@ -38,9 +38,11 @@ public class ReaderDBHelper{
                 values.clear();
             }
             db.close();
+            dbHelper.close();
             return 0;
         }catch (Exception e){
             db.close();
+            dbHelper.close();
             e.printStackTrace();
             return -1;
         }
@@ -58,6 +60,8 @@ public class ReaderDBHelper{
         for(String id:deleteReaderIds){
             db.delete(TABLE_NAME,"readerId = ?",new String[]{id});
         }
+        db.close();
+        dbHelper.close();
         return 0;
     }
 
@@ -75,6 +79,8 @@ public class ReaderDBHelper{
         values.put("readerPw",newPw);
         db.update(TABLE_NAME,values,"readerId=?",new String[]{readerId});
         values.clear();
+        db.close();
+        dbHelper.close();
         return 0;
     }
 
@@ -100,6 +106,8 @@ public class ReaderDBHelper{
             }while (cursor.moveToNext());
         }
         cursor.close();
+        db.close();
+        dbHelper.close();
         return maps;
     }
 
@@ -118,14 +126,22 @@ public class ReaderDBHelper{
             do{
                 if(cursor.getInt(cursor.getColumnIndex("readerId"))==readerId){
                     if(cursor.getString(cursor.getColumnIndex("readerPw")).equals(readerPw)){
+                        cursor.close();
+                        db.close();
+                        dbHelper.close();
                         return 0;       //代表验证正确
                     }else {
+                        cursor.close();
+                        db.close();
+                        dbHelper.close();
                         return 1;       //代表密码错误
                     }
                 }
             }while (cursor.moveToNext());
         }
         cursor.close();
+        db.close();
+        dbHelper.close();
         return 2;                       //代表用户名不存在
     }
 

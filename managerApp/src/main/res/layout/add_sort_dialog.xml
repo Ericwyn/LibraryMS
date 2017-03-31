@@ -23,10 +23,10 @@
         app:layout_constraintLeft_toLeftOf="parent">
 
         <EditText
-            android:inputType="none"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="类别编号(自动生成)"/>
+            android:hint="类别编号(自动生成)"
+            android:inputType="none|number"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout

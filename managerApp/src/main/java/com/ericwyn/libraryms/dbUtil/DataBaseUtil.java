@@ -21,6 +21,7 @@ public class DataBaseUtil {
     public static void dBIni(Context context){
         DbHelper dbHelper=new DbHelper(context,"userDB",null,1);
         dbHelper.getWritableDatabase();
+        dbHelper.close();
     }
 
 

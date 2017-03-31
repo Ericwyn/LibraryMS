@@ -44,9 +44,11 @@ public class BookDBHelper {
                 values.clear();
             }
             db.close();
+            dbHelper.close();
             return 0;
         }catch (Exception e){
             db.close();
+            dbHelper.close();
             e.printStackTrace();
             return -1;
         }
@@ -66,6 +68,7 @@ public class BookDBHelper {
             db.delete(TABLE_NAME,"bookId = ?",new String[]{id});
         }
         db.close();
+        dbHelper.close();
         return 0;
     }
 
@@ -83,6 +86,7 @@ public class BookDBHelper {
             db.delete(TABLE_NAME,"bookName = ?",new String[]{name});
         }
         db.close();
+        dbHelper.close();
         return 0;
     }
 
@@ -100,6 +104,7 @@ public class BookDBHelper {
             db.delete(TABLE_NAME,"sortId = ?",new String[]{sortIdS});
         }
         db.close();
+        dbHelper.close();
         return 0;
     }
 
@@ -127,6 +132,7 @@ public class BookDBHelper {
         db.update(TABLE_NAME,values,"bookId=?",new String[]{bookId});
         values.clear();
         db.close();
+        dbHelper.close();
         return 0;
     }
 
@@ -148,6 +154,7 @@ public class BookDBHelper {
         db.update(TABLE_NAME,values,"readerId=?",new String[]{bookId});
         values.clear();
         db.close();
+        dbHelper.close();
         return 0;
     }
 
@@ -183,6 +190,7 @@ public class BookDBHelper {
         }
         cursor.close();
         db.close();
+        dbHelper.close();
         return maps;
     }
 
@@ -220,6 +228,7 @@ public class BookDBHelper {
         }
         cursor.close();
         db.close();
+        dbHelper.close();
         return maps;
     }
 
@@ -252,12 +261,16 @@ public class BookDBHelper {
         if(cursor.moveToFirst()){
             do{
                 if(cursor.getString(cursor.getColumnIndex("bookId")).equals(bookId)){
-                    return cursor.getInt(cursor.getColumnIndex("bookOverNum"));
+                    int back=cursor.getInt(cursor.getColumnIndex("bookOverNum"));
+                    db.close();
+                    dbHelper.close();
+                    return back;
                 }
             }while (cursor.moveToNext());
         }
         cursor.close();
         db.close();
+        dbHelper.close();
         return -1;
     }
 }

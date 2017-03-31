@@ -38,9 +38,11 @@ public class SortDBHelper{
                 values.clear();
             }
             db.close();
+            dbHelper.close();
             return 0;
         }catch (Exception e){
             db.close();
+            dbHelper.close();
             e.printStackTrace();
             return -1;
         }
@@ -62,6 +64,7 @@ public class SortDBHelper{
             db.delete(TABLE_NAME,"sortId = ?",new String[]{idS});
         }
         db.close();
+        dbHelper.close();
         return 0;
     }
 
@@ -79,6 +82,7 @@ public class SortDBHelper{
             db.delete(TABLE_NAME,"sortName = ?",new String[]{name});
         }
         db.close();
+        dbHelper.close();
         return 0;
     }
 
@@ -123,6 +127,7 @@ public class SortDBHelper{
         }
         cursor.close();
         db.close();
+        dbHelper.close();
         return maps;
     }
 
@@ -144,6 +149,7 @@ public class SortDBHelper{
         }
         cursor.close();
         db.close();
+        dbHelper.close();
         String[] back=new String[maps.size()];
         maps.toArray(back);
         return back;
@@ -162,12 +168,17 @@ public class SortDBHelper{
         if(cursor.moveToFirst()){
             do{
                 if(cursor.getInt(cursor.getColumnIndex("sortId"))==sortId){
-                    return cursor.getString(cursor.getColumnIndex("sortName"));
+                    String back=cursor.getString(cursor.getColumnIndex("sortName"));
+                    cursor.close();
+                    db.close();
+                    dbHelper.close();
+                    return back;
                 }
             }while (cursor.moveToNext());
         }
         cursor.close();
         db.close();
+        dbHelper.close();
         return null;
     }
 
@@ -178,12 +189,17 @@ public class SortDBHelper{
         if(cursor.moveToFirst()){
             do{
                 if(cursor.getString(cursor.getColumnIndex("sortName")).equals(sortName)){
-                    return cursor.getInt(cursor.getColumnIndex("sortId"));
+                    int back=cursor.getInt(cursor.getColumnIndex("sortId"));
+                    cursor.close();
+                    db.close();
+                    dbHelper.close();
+                    return back;
                 }
             }while (cursor.moveToNext());
         }
         cursor.close();
         db.close();
+        dbHelper.close();
         return -1;
     }
 

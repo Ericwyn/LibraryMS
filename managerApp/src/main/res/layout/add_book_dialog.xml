@@ -107,7 +107,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="书籍总数"/>
+            android:hint="书籍总数"
+            android:inputType="number"/>
     </android.support.design.widget.TextInputLayout>
 
 </android.support.constraint.ConstraintLayout>
