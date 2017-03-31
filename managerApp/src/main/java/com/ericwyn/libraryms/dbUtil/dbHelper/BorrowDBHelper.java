@@ -28,16 +28,23 @@ public class BorrowDBHelper {
     public static int addBorrowRec(Context context, ArrayList<HashMap<String,Object>> maps){
         DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
         SQLiteDatabase db=dbHelper.getWritableDatabase();
-        for(HashMap<String ,Object> map:maps){
-            int readerId=(int)map.get("readerId");
-            String bookId=(String)map.get("bookId");
-            ContentValues values=new ContentValues();
-            values.put("readerId",readerId);
-            values.put("bookId",bookId);
-            db.insert(TABLE_NAME,null,values);
-            values.clear();
+        try {
+            for(HashMap<String ,Object> map:maps){
+                int readerId=(int)map.get("readerId");
+                String bookId=(String)map.get("bookId");
+                ContentValues values=new ContentValues();
+                values.put("readerId",readerId);
+                values.put("bookId",bookId);
+                db.insert(TABLE_NAME,null,values);
+                values.clear();
+            }
+            db.close();
+            return 0;
+        }catch (Exception e){
+            db.close();
+            e.printStackTrace();
+            return -1;
         }
-        return 0;
     }
 
     /**
@@ -54,6 +61,7 @@ public class BorrowDBHelper {
             String bookId=(String)map.get("bookId");
             db.delete(TABLE_NAME,"readerId = ? AND bookId= ?",new String[]{""+readerId,bookId});
         }
+        db.close();
         return 0;
     }
 

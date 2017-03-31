@@ -27,22 +27,30 @@ public class BookDBHelper {
     public static int addBooks(Context context, ArrayList<HashMap<String,Object>> maps){
         DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
         SQLiteDatabase db=dbHelper.getWritableDatabase();
-        for(HashMap<String ,Object> map:maps){
-            String bookId      =(String)map.get("bookId");
-            int sortId      =(int)map.get("sortId");
-            String bookName =(String)map.get("bookName");
-            int bookAllNum  =(int)map.get("bookAllNum");
-            int bookOverNum =(int)map.get("bookOverNum");
-            ContentValues values=new ContentValues();
-            values.put("bookId",bookId);
-            values.put("sortId",sortId);
-            values.put("bookName",bookName);
-            values.put("bookAllNum",bookAllNum);
-            values.put("bookOverNum",bookOverNum);
-            db.insert(TABLE_NAME,null,values);
-            values.clear();
+        try {
+            for(HashMap<String ,Object> map:maps){
+                String bookId      =(String)map.get("bookId");
+                int sortId      =(int)map.get("sortId");
+                String bookName =(String)map.get("bookName");
+                int bookAllNum  =(int)map.get("bookAllNum");
+                int bookOverNum =(int)map.get("bookOverNum");
+                ContentValues values=new ContentValues();
+                values.put("bookId",bookId);
+                values.put("sortId",sortId);
+                values.put("bookName",bookName);
+                values.put("bookAllNum",bookAllNum);
+                values.put("bookOverNum",bookOverNum);
+                db.insert(TABLE_NAME,null,values);
+                values.clear();
+            }
+            db.close();
+            return 0;
+        }catch (Exception e){
+            db.close();
+            e.printStackTrace();
+            return -1;
         }
-        return 0;
+
     }
 
     /**
@@ -57,6 +65,7 @@ public class BookDBHelper {
         for(String id:deleteBookIds){
             db.delete(TABLE_NAME,"bookId = ?",new String[]{id});
         }
+        db.close();
         return 0;
     }
 
@@ -73,6 +82,7 @@ public class BookDBHelper {
         for(String name:deleteBookNames){
             db.delete(TABLE_NAME,"bookName = ?",new String[]{name});
         }
+        db.close();
         return 0;
     }
 
@@ -89,6 +99,7 @@ public class BookDBHelper {
             String sortIdS=""+sortId;
             db.delete(TABLE_NAME,"sortId = ?",new String[]{sortIdS});
         }
+        db.close();
         return 0;
     }
 
@@ -115,6 +126,7 @@ public class BookDBHelper {
         values.put("bookOverNum",bookOverNum);
         db.update(TABLE_NAME,values,"bookId=?",new String[]{bookId});
         values.clear();
+        db.close();
         return 0;
     }
 
@@ -135,6 +147,7 @@ public class BookDBHelper {
         values.put("bookOverNum",bookOverNum);
         db.update(TABLE_NAME,values,"readerId=?",new String[]{bookId});
         values.clear();
+        db.close();
         return 0;
     }
 
@@ -169,6 +182,7 @@ public class BookDBHelper {
             }while (cursor.moveToNext());
         }
         cursor.close();
+        db.close();
         return maps;
     }
 
@@ -205,6 +219,7 @@ public class BookDBHelper {
             }while (cursor.moveToNext());
         }
         cursor.close();
+        db.close();
         return maps;
     }
 
@@ -242,6 +257,7 @@ public class BookDBHelper {
             }while (cursor.moveToNext());
         }
         cursor.close();
+        db.close();
         return -1;
     }
 }

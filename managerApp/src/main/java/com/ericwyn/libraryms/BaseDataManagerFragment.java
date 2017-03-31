@@ -1,29 +1,26 @@
 package com.ericwyn.libraryms;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.ericwyn.libraryms.ChildFragment.baseDataM.BookManagerFragment;
 import com.ericwyn.libraryms.ChildFragment.baseDataM.ReaderManagerFragment;
 import com.ericwyn.libraryms.ChildFragment.baseDataM.SortManagerFragment;
-import com.ericwyn.libraryms.dbUtil.dbHelper.ReaderDBHelper;
+import com.ericwyn.libraryms.addDialog.AddBookDialogBuilder;
+import com.ericwyn.libraryms.addDialog.AddReaderDialogBuilder;
+import com.ericwyn.libraryms.addDialog.AddsortDialogBuilder;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -68,51 +65,26 @@ public class BaseDataManagerFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 floatingActionsMenu.toggle();
-                LayoutInflater inflater=getActivity().getLayoutInflater();
-                View dialog=inflater.inflate(R.layout.add_reader_dialog,(ViewGroup)view.findViewById(R.id.reader_dialog_datebaseManager));
-                final TextInputLayout readerId=(TextInputLayout)dialog.findViewById(R.id.textInputLayout_readerId_addReaderDialog);
-                final TextInputLayout readerPw=(TextInputLayout)dialog.findViewById(R.id.textInputLayout_readerPw_addReaderDialog);
-                final TextInputLayout readerPwEnsure=(TextInputLayout)dialog.findViewById(R.id.textInputLayout_readerPwEnsure_addReaderDialog);
-                final AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
-                builder.setTitle("新增读者");
-                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        ArrayList<HashMap<String,Object>> maps=new ArrayList<HashMap<String, Object>>();
-                        HashMap<String,Object> map=new HashMap<String, Object>();
-                        String readerIdFlag=readerId.getEditText().getText().toString();
-                        String readerPwFlag=readerPw.getEditText().getText().toString();
-                        String readerPwEnsureFlag=readerPwEnsure.getEditText().getText().toString();
-                        if(readerPwFlag.equals(readerPwEnsureFlag)){
-                            if(!readerIdFlag.equals("") && !readerPwFlag.equals("")){
-                                map.put("readerId",Integer.parseInt(readerIdFlag));
-                                map.put("readerPw",readerPwFlag);
-                                maps.add(map);
-                                if(ReaderDBHelper.addReaders(getActivity(),maps)!=-1){
-                                    Toast.makeText(getActivity(),"新增读者"+readerIdFlag+"数据成功",Toast.LENGTH_SHORT).show();
-                                }else {
-                                    Toast.makeText(getActivity(),"新增读者数据失败，请检查",Toast.LENGTH_SHORT).show();
-                                }
-                            }else {
-                                Toast.makeText(getActivity(),"请填写读者Id与对应密码",Toast.LENGTH_LONG).show();
-                            }
-                        }else {
-                            Toast.makeText(getActivity(),"新增读者数据失败，输入密码不一致",Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-                builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                });
-                builder.setView(dialog);
-                builder.show();
-
+                AddReaderDialogBuilder dialogBuilder=new AddReaderDialogBuilder(getActivity());
+                dialogBuilder.show();
             }
         });
-
+        addASort.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                floatingActionsMenu.toggle();
+                AddsortDialogBuilder dialogBuilder=new AddsortDialogBuilder(getActivity());
+                dialogBuilder.show();
+            }
+        });
+        addABook.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                floatingActionsMenu.toggle();
+                AddBookDialogBuilder dialogBuilder=new AddBookDialogBuilder(getActivity());
+                dialogBuilder.show();
+            }
+        });
 
 
         return view;

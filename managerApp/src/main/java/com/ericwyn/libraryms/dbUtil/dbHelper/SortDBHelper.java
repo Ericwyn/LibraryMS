@@ -27,16 +27,24 @@ public class SortDBHelper{
     public static int addSorts(Context context,ArrayList<HashMap<String,Object>> maps){
         DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
         SQLiteDatabase db=dbHelper.getWritableDatabase();
-        for(HashMap<String ,Object> map:maps){
-            int readerId=(int)map.get("sortId");
-            String readerPw=(String)map.get("sortName");
-            ContentValues values=new ContentValues();
-            values.put("sortId",readerId);
-            values.put("sortName",readerPw);
-            db.insert(TABLE_NAME,null,values);
-            values.clear();
+        try {
+            for(HashMap<String ,Object> map:maps){
+                int readerId=(int)map.get("sortId");
+                String readerPw=(String)map.get("sortName");
+                ContentValues values=new ContentValues();
+                values.put("sortId",readerId);
+                values.put("sortName",readerPw);
+                db.insert(TABLE_NAME,null,values);
+                values.clear();
+            }
+            db.close();
+            return 0;
+        }catch (Exception e){
+            db.close();
+            e.printStackTrace();
+            return -1;
         }
-        return 0;
+
     }
 
     /**
@@ -53,6 +61,7 @@ public class SortDBHelper{
             String idS=""+id;
             db.delete(TABLE_NAME,"sortId = ?",new String[]{idS});
         }
+        db.close();
         return 0;
     }
 
@@ -69,6 +78,7 @@ public class SortDBHelper{
         for(String name:deleteSortNames){
             db.delete(TABLE_NAME,"sortName = ?",new String[]{name});
         }
+        db.close();
         return 0;
     }
 
@@ -104,16 +114,41 @@ public class SortDBHelper{
         if(cursor.moveToFirst()){
             do{
                 HashMap<String ,Object> map=new HashMap<>();
-                int readerId=cursor.getInt(cursor.getColumnIndex("sortId"));
-                String readerPw=cursor.getString(cursor.getColumnIndex("sortName"));
-                map.put("sortId",readerId);
-                map.put("sortName",readerPw);
+                int sortId=cursor.getInt(cursor.getColumnIndex("sortId"));
+                String sortName=cursor.getString(cursor.getColumnIndex("sortName"));
+                map.put("sortId",sortId);
+                map.put("sortName",sortName);
                 maps.add(map);
             }while (cursor.moveToNext());
         }
         cursor.close();
+        db.close();
         return maps;
     }
+
+    /**
+     * 返回所有的类别的名单，这个方法用于Spinner的下拉选择列表
+     * @param context
+     * @return
+     */
+    public static String[] searchAllSortName(Context context){
+        ArrayList<String> maps=new ArrayList<>();
+        DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+        Cursor cursor=db.query(TABLE_NAME,null,null,null,null,null,null);
+        if(cursor.moveToFirst()){
+            do{
+                String sortName=cursor.getString(cursor.getColumnIndex("sortName"));
+                maps.add(sortName);
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        String[] back=new String[maps.size()];
+        maps.toArray(back);
+        return back;
+    }
+
 
     /**
      * 通过sortId，返回类别的名称，使用时候可能需要先判断是否为null
@@ -132,7 +167,25 @@ public class SortDBHelper{
             }while (cursor.moveToNext());
         }
         cursor.close();
+        db.close();
         return null;
     }
+
+    public static int getSortIdByName(Context context,String sortName){
+        DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+        Cursor cursor=db.query(TABLE_NAME,null,null,null,null,null,null);
+        if(cursor.moveToFirst()){
+            do{
+                if(cursor.getString(cursor.getColumnIndex("sortName")).equals(sortName)){
+                    return cursor.getInt(cursor.getColumnIndex("sortId"));
+                }
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return -1;
+    }
+
 
 }
