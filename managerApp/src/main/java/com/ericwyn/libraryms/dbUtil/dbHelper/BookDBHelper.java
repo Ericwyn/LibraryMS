@@ -21,7 +21,7 @@ public class BookDBHelper {
     /**
      * 增加图书类型
      * @param context   上下文
-     * @param maps  需要增加图书类型的集合，包含bookId，bookName，sortId，bookAllNum，bookOverNum
+     * @param maps  需要增加图书类型的集合，包含bookId，bookName，sortId，bookAllNum，bookOutNum
      * @return  返回状态代码
      */
     public static int addBooks(Context context, ArrayList<HashMap<String,Object>> maps){
@@ -33,13 +33,13 @@ public class BookDBHelper {
                 int sortId      =(int)map.get("sortId");
                 String bookName =(String)map.get("bookName");
                 int bookAllNum  =(int)map.get("bookAllNum");
-                int bookOverNum =(int)map.get("bookOverNum");
+                int bookOutNum =(int)map.get("bookOutNum");
                 ContentValues values=new ContentValues();
                 values.put("bookId",bookId);
                 values.put("sortId",sortId);
                 values.put("bookName",bookName);
                 values.put("bookAllNum",bookAllNum);
-                values.put("bookOverNum",bookOverNum);
+                values.put("bookOutNum",bookOutNum);
                 db.insert(TABLE_NAME,null,values);
                 values.clear();
             }
@@ -122,13 +122,13 @@ public class BookDBHelper {
         int sortId      =(int)bookNewMap.get("sortId");
         String bookName =(String)bookNewMap.get("bookName");
         int bookAllNum  =(int)bookNewMap.get("bookAllNum");
-        int bookOverNum =(int)bookNewMap.get("bookOverNum");
+        int bookOutNum =(int)bookNewMap.get("bookOutNum");
         ContentValues values=new ContentValues();
 //        values.put("boolId",bookId);
         values.put("sortId",sortId);
         values.put("bookName",bookName);
         values.put("bookAllNum",bookAllNum);
-        values.put("bookOverNum",bookOverNum);
+        values.put("bookOutNum",bookOutNum);
         db.update(TABLE_NAME,values,"bookId=?",new String[]{bookId});
         values.clear();
         db.close();
@@ -143,20 +143,21 @@ public class BookDBHelper {
      * @return  返回状态码
      */
     public static int borrowABookId(Context context,String bookId){
-//        if(isBookOver(context,bookId)!=0) return -1;  //默认不会开启检验
+//        if(bookOutNum(context,bookId)!=0) return -1;  //默认不会开启检验
         DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
         SQLiteDatabase db=dbHelper.getWritableDatabase();
 //        int bookId      =(int)bookNewMap.get("bookId");
-        int bookOverNum =bookOverNum(context,bookId)-1;
+        int bookOutNum =bookOutNum(context,bookId)+1;
         ContentValues values=new ContentValues();
 //        values.put("boolId",bookId);
-        values.put("bookOverNum",bookOverNum);
+        values.put("bookOutNum",bookOutNum);
         db.update(TABLE_NAME,values,"readerId=?",new String[]{bookId});
         values.clear();
         db.close();
         dbHelper.close();
         return 0;
     }
+
 
 
 
@@ -177,13 +178,13 @@ public class BookDBHelper {
                 int sortId      =cursor.getInt(cursor.getColumnIndex("sortId"));
                 String bookName =cursor.getString(cursor.getColumnIndex("bookName"));
                 int bookAllNum  =cursor.getInt(cursor.getColumnIndex("bookAllNum"));
-                int bookOverNum =cursor.getInt(cursor.getColumnIndex("bookOverNum"));
+                int bookOutNum =cursor.getInt(cursor.getColumnIndex("bookOutNum"));
 
                 map.put("bookId",bookId);
                 map.put("sortId",sortId);
                 map.put("bookName",bookName);
                 map.put("bookAllNum",bookAllNum);
-                map.put("bookOverNum",bookOverNum);
+                map.put("bookOutNum",bookOutNum);
 
                 maps.add(map);
             }while (cursor.moveToNext());
@@ -200,7 +201,7 @@ public class BookDBHelper {
      * @param context   上下文
      * @return  返回书籍信息的集合
      */
-    public static ArrayList<HashMap<String,Object>> searchBookBySortId(Context context,int searchSortId){
+    public static ArrayList<HashMap<String,Object>> searchBooksBySortId(Context context,int searchSortId){
         ArrayList<HashMap<String,Object>> maps=new ArrayList<>();
         DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
         SQLiteDatabase db=dbHelper.getWritableDatabase();
@@ -213,13 +214,13 @@ public class BookDBHelper {
                     int sortId      =cursor.getInt(cursor.getColumnIndex("sortId"));
                     String bookName =cursor.getString(cursor.getColumnIndex("bookName"));
                     int bookAllNum  =cursor.getInt(cursor.getColumnIndex("bookAllNum"));
-                    int bookOverNum =cursor.getInt(cursor.getColumnIndex("bookOverNum"));
+                    int bookOutNum =cursor.getInt(cursor.getColumnIndex("bookOutNum"));
 
                     map.put("bookId",bookId);
                     map.put("sortId",sortId);
                     map.put("bookName",bookName);
                     map.put("bookAllNum",bookAllNum);
-                    map.put("bookOverNum",bookOverNum);
+                    map.put("bookOutNum",bookOutNum);
 
                     maps.add(map);
                 }
@@ -231,6 +232,49 @@ public class BookDBHelper {
         dbHelper.close();
         return maps;
     }
+
+
+    /**
+     * 通过书籍的id，返回书籍的所有信息
+     * @param context   上下文
+     * @param searchBookId  书籍的id
+     * @return  返回用map包装好的一列数据
+     */
+    public static HashMap<String,Object> searchBookById(Context context,String searchBookId){
+//        ArrayList<HashMap<String,Object>> maps=new ArrayList<>();
+        DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+        Cursor cursor=db.query(TABLE_NAME,null,null,null,null,null,null);
+        HashMap<String ,Object> map=new HashMap<>();
+        if(cursor.moveToFirst()){
+            do{
+                if(cursor.getString(cursor.getColumnIndex("bookId")).equals(searchBookId)){
+                    String bookId   =cursor.getString(cursor.getColumnIndex("bookId"));
+                    int sortId      =cursor.getInt(cursor.getColumnIndex("sortId"));
+                    String bookName =cursor.getString(cursor.getColumnIndex("bookName"));
+                    int bookAllNum  =cursor.getInt(cursor.getColumnIndex("bookAllNum"));
+                    int bookOutNum =cursor.getInt(cursor.getColumnIndex("bookOutNum"));
+
+                    map.put("bookId",bookId);
+                    map.put("sortId",sortId);
+                    map.put("bookName",bookName);
+                    map.put("bookAllNum",bookAllNum);
+                    map.put("bookOutNum",bookOutNum);
+
+                    cursor.close();
+                    db.close();
+                    dbHelper.close();
+                    return map;
+                }
+
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        dbHelper.close();
+        return null;
+    }
+
 
     /**
      * 通过bookId查看书籍是否有剩余的方法
@@ -261,10 +305,38 @@ public class BookDBHelper {
         if(cursor.moveToFirst()){
             do{
                 if(cursor.getString(cursor.getColumnIndex("bookId")).equals(bookId)){
-                    int back=cursor.getInt(cursor.getColumnIndex("bookOverNum"));
+                    int bookAll=cursor.getInt(cursor.getColumnIndex("bookAllNum"));
+                    int bookOutNum=cursor.getInt(cursor.getColumnIndex("bookOutNum"));
                     db.close();
                     dbHelper.close();
-                    return back;
+                    return (bookAll-bookOutNum);
+                }
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        dbHelper.close();
+        return -1;
+    }
+
+
+    /**
+     * 查看书籍外借的数量
+     * @param context   上下文
+     * @param bookId    书籍id
+     * @return  返回的数量,-1代表没有这本书
+     */
+    public static int bookOutNum(Context context, String bookId) {
+        DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+        Cursor cursor=db.query(TABLE_NAME,null,null,null,null,null,null);
+        if(cursor.moveToFirst()){
+            do{
+                if(cursor.getString(cursor.getColumnIndex("bookId")).equals(bookId)){
+                    int bookOutNum=cursor.getInt(cursor.getColumnIndex("bookOutNum"));
+                    db.close();
+                    dbHelper.close();
+                    return bookOutNum;
                 }
             }while (cursor.moveToNext());
         }

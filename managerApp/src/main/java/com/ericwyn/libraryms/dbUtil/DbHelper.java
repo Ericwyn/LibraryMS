@@ -18,7 +18,7 @@ public class DbHelper extends SQLiteOpenHelper {
             "bookName text," +
             "sortId integer," +
             "bookAllNum integer," +
-            "bookOverNum integer" +
+            "bookOutNum integer" +
             ")";
 
     private static final String CREATE_sortDB="create table sortDB(" +

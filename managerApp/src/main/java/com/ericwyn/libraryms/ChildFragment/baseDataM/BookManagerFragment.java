@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.ericwyn.libraryms.R;
 import com.ericwyn.libraryms.dbUtil.dbHelper.BookDBHelper;
 import com.ericwyn.libraryms.dbUtil.dbHelper.SortDBHelper;
+import com.ericwyn.libraryms.updataDialog.UpdataBookDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,6 +39,8 @@ public class BookManagerFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
         recyclerView.setAdapter(new BookManagerAdapter(getActivity(),getData()));
+
+
         return view;
     }
     private ArrayList<HashMap<String,Object>> getData(){
@@ -73,14 +76,21 @@ public class BookManagerFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(VH holder, int position) {
+        public void onBindViewHolder(VH holder, final int position) {
             String bookName=(String) dataList.get(position).get("bookName");
             String sortName=(String) dataList.get(position).get("sortName");
-            String bookId=(String)dataList.get(position).get("bookId");
+            final String bookId=(String)dataList.get(position).get("bookId");
             holder.bookName.setText(bookName);
             holder.sortName.setText(sortName);
             holder.bookId.setText(bookId);
-
+            holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    UpdataBookDialogBuilder dialogBuilder=
+                            new UpdataBookDialogBuilder(getActivity(),bookId);
+                    dialogBuilder.show();
+                }
+            });
         }
 
         @Override
