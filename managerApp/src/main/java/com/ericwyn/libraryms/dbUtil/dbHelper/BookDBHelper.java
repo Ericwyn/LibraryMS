@@ -62,14 +62,20 @@ public class BookDBHelper {
      * @return
      */
     public static int deleteSortByBookId(Context context,ArrayList<String> deleteBookIds){
-        DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
-        SQLiteDatabase db=dbHelper.getWritableDatabase();
-        for(String id:deleteBookIds){
-            db.delete(TABLE_NAME,"bookId = ?",new String[]{id});
+        try {
+            DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
+            SQLiteDatabase db=dbHelper.getWritableDatabase();
+            for(String id:deleteBookIds){
+                db.delete(TABLE_NAME,"bookId = ?",new String[]{id});
+            }
+            db.close();
+            dbHelper.close();
+            return 0;
+        }catch (Exception e){
+            e.printStackTrace();
+            return -1;
         }
-        db.close();
-        dbHelper.close();
-        return 0;
+
     }
 
 
@@ -97,15 +103,20 @@ public class BookDBHelper {
      * @return  返回状态代码
      */
     public static int deleteSortBySortId(Context context,ArrayList<Integer> deleteSortId){
-        DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
-        SQLiteDatabase db=dbHelper.getWritableDatabase();
-        for(int sortId:deleteSortId){
-            String sortIdS=""+sortId;
-            db.delete(TABLE_NAME,"sortId = ?",new String[]{sortIdS});
+        try {
+            DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
+            SQLiteDatabase db=dbHelper.getWritableDatabase();
+            for(int sortId:deleteSortId){
+                String sortIdS=""+sortId;
+                db.delete(TABLE_NAME,"sortId = ?",new String[]{sortIdS});
+            }
+            db.close();
+            dbHelper.close();
+            return 0;
+        }catch (Exception e){
+            e.printStackTrace();
+            return -1;
         }
-        db.close();
-        dbHelper.close();
-        return 0;
     }
 
     /**

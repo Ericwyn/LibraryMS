@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.ericwyn.libraryms.R;
 import com.ericwyn.libraryms.dbUtil.dbHelper.SortDBHelper;
+import com.ericwyn.libraryms.updataDialog.UpdataSortDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +27,9 @@ import java.util.List;
 
 public class SortManagerFragment extends Fragment {
     private RecyclerView recyclerView;
+    private ArrayList<HashMap<String,Object>> data;
+    private SortManagerAdapter adapter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -33,7 +37,10 @@ public class SortManagerFragment extends Fragment {
         recyclerView=(RecyclerView) view.findViewById(R.id.rv_child_fragment);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        recyclerView.setAdapter(new SortManagerAdapter(getActivity(),getData()));
+        data=getData();
+        adapter=new SortManagerAdapter(getActivity(),data,this);
+
+        recyclerView.setAdapter(adapter);
 
         return view;
     }
@@ -54,10 +61,12 @@ public class SortManagerFragment extends Fragment {
 
         private List<HashMap<String,Object>> dataList;
         private LayoutInflater layoutInflater;
+        private SortManagerFragment fragment;
 
-        public SortManagerAdapter(Context context, ArrayList<HashMap<String,Object>> datas) {
+        public SortManagerAdapter(Context context, ArrayList<HashMap<String,Object>> datas,SortManagerFragment fragment) {
             this.layoutInflater=LayoutInflater.from(context);
             this.dataList = datas;
+            this.fragment=fragment;
         }
 
         @Override
@@ -66,11 +75,20 @@ public class SortManagerFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(VH holder, int position) {
+        public void onBindViewHolder(VH holder, final int position) {
             String sortName=(String) dataList.get(position).get("sortName");
             int sortId=(int)dataList.get(position).get("sortId");
             holder.sortId.setText(""+sortId);
             holder.sortName.setText(sortName);
+            holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    UpdataSortDialogBuilder dialogBuilder=
+                            new UpdataSortDialogBuilder(getActivity(),dataList.get(position),fragment);
+                    dialogBuilder.show();
+                }
+            });
+
         }
 
         @Override
@@ -90,4 +108,11 @@ public class SortManagerFragment extends Fragment {
             }
         }
     }
+
+    public void updata(){
+        data.clear();;
+        data.addAll(getData());
+        adapter.notifyDataSetChanged();
+    }
+
 }

@@ -15,10 +15,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ericwyn.libraryms.ChildFragment.baseDataM.BookManagerFragment;
 import com.ericwyn.libraryms.R;
 import com.ericwyn.libraryms.dbUtil.dbHelper.BookDBHelper;
 import com.ericwyn.libraryms.dbUtil.dbHelper.SortDBHelper;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -38,11 +40,14 @@ public class UpdataBookDialogBuilder extends AlertDialog.Builder {
 
     private HashMap<String,Object> dataMap=new HashMap<>();
 
+    private final BookManagerFragment fragment;
 
-    public UpdataBookDialogBuilder(@NonNull Context context,String bookid) {
+
+    public UpdataBookDialogBuilder(@NonNull Context context, String bookid,final BookManagerFragment fragment) {
         super(context);
         mContext=context;
         dataMap= BookDBHelper.searchBookById(mContext,bookid);
+        this.fragment=fragment;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view=inflater.inflate(R.layout.update_book_dialog, null);
         this.setView(view);
@@ -68,6 +73,7 @@ public class UpdataBookDialogBuilder extends AlertDialog.Builder {
                     map.put("sortId",sortId);
                     if(BookDBHelper.chanceByBookId(mContext,bookIdFlag,map)!=-1){
                         Toast.makeText(mContext,"更新图书"+bookNameFlag+"数据成功",Toast.LENGTH_SHORT).show();
+                        fragment.updataData();
                     }else {
                         Toast.makeText(mContext,"更新图书数据失败，请检查",Toast.LENGTH_SHORT).show();
                     }
@@ -85,11 +91,21 @@ public class UpdataBookDialogBuilder extends AlertDialog.Builder {
 
             }
         });
-        //设置消极按钮，在中间
+        //消极按钮，在中间
         super.setNegativeButton("删除书籍", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                String bookIdFlag=bookId.getText().toString();
+                String bookNameFlag=bookName.getEditText().getText().toString();
+                ArrayList<String> list=new ArrayList<String>();
+                list.add(bookIdFlag);
+                if(BookDBHelper.deleteSortByBookId(mContext,list)==0){
+                    Toast.makeText(mContext,"删除"+bookNameFlag+"数据成功",Toast.LENGTH_SHORT).show();
+                    fragment.updataData();
+                }else {
+                    Toast.makeText(mContext,"删除"+bookNameFlag+"数据失败",Toast.LENGTH_LONG).show();
 
+                }
             }
         });
 
@@ -102,7 +118,6 @@ public class UpdataBookDialogBuilder extends AlertDialog.Builder {
         bookName=(TextInputLayout)view.findViewById(R.id.textInputLayout_bookName_updatabookDialog);
         bookAllNum=(TextInputLayout)view.findViewById(R.id.textInputLayout_bookAllNum_updatabookDialog);
         bookOutNum=(TextInputLayout)view.findViewById(R.id.textInputLayout_bookOverNum_updatabookDialog);
-
 
         bookId.setText((String)dataMap.get("bookId"));
         bookName.getEditText().setText((String)dataMap.get("bookName"));

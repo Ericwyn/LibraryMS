@@ -57,15 +57,21 @@ public class SortDBHelper{
      */
 
     public static int deleteSortById(Context context,ArrayList<Integer> deleteSortIds){
-        DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
-        SQLiteDatabase db=dbHelper.getWritableDatabase();
-        for(Integer id:deleteSortIds){
-            String idS=""+id;
-            db.delete(TABLE_NAME,"sortId = ?",new String[]{idS});
+        try {
+            DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
+            SQLiteDatabase db=dbHelper.getWritableDatabase();
+            for(Integer id:deleteSortIds){
+                String idS=""+id;
+                db.delete(TABLE_NAME,"sortId = ?",new String[]{idS});
+            }
+            db.close();
+            dbHelper.close();
+            return 0;
+        }catch (Exception e){
+            e.printStackTrace();
+            return -1;
         }
-        db.close();
-        dbHelper.close();
-        return 0;
+
     }
 
 
