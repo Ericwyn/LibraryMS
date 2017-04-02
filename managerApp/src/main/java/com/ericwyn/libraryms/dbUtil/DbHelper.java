@@ -36,6 +36,14 @@ public class DbHelper extends SQLiteOpenHelper {
             "bookId text NOT NULL" +
             ")";
 
+    private static final String CREATE_OrderDB="create table OederDB(" +
+            "bookId text primary key," +
+            "bookName text," +
+            "sortId integer," +
+            "bookAllNum integer," +
+            "bookOutNum integer" +
+            ")";
+
     private Context mContext;
 
     public DbHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
@@ -53,6 +61,9 @@ public class DbHelper extends SQLiteOpenHelper {
         Log.i("数据库操作","成功创建sortDB表");
         db.execSQL(CREATE_borrowDB);
         Log.i("数据库操作","成功创建borrowDB表");
+        db.execSQL(CREATE_OrderDB);
+        Log.i("数据库操作","成功创建OrderDB表");
+
     }
 
     @Override

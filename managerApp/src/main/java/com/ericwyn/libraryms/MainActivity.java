@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.ericwyn.libraryms.dbUtil.DataBaseUtil;
 import com.ericwyn.libraryms.dbUtil.dbHelper.BookDBHelper;
+import com.ericwyn.libraryms.dbUtil.dbHelper.OrderDBHelper;
 import com.ericwyn.libraryms.dbUtil.dbHelper.ReaderDBHelper;
 import com.ericwyn.libraryms.dbUtil.dbHelper.SortDBHelper;
 
@@ -113,11 +114,15 @@ public class MainActivity extends AppCompatActivity
             setTitle("基础数据维护");
             BaseDataManagerFragment fragment=new BaseDataManagerFragment();
             switchFragment(mContent,fragment);
-        } else if (id == R.id.nav_borrowManager) {
-            setTitle("图书借阅管理");
-
-        } else if (id == R.id.nav_orderManager) {
+        }
+//        else if (id == R.id.nav_borrowManager) {
+//            setTitle("图书借阅管理");
+//
+//        }
+        else if (id == R.id.nav_orderManager) {
             setTitle("新书订购管理");
+            BookOrderFragment fragment=new BookOrderFragment();
+            switchFragment(mContent,fragment);
 
         } else if (id == R.id.nav_introduction) {
             dbini();
@@ -140,7 +145,7 @@ public class MainActivity extends AppCompatActivity
         }
         ReaderDBHelper.addReaders(this,maps);
 
-        maps=new ArrayList<>();
+        maps.clear();
         for(int i=0;i<10;i++){
             HashMap<String ,Object> map=new HashMap<>();
             map.put("sortId",i);
@@ -149,7 +154,7 @@ public class MainActivity extends AppCompatActivity
         }
         SortDBHelper.addSorts(this,maps);
 
-        maps=new ArrayList<>();
+        maps.clear();
         for(int i=0;i<25;i++){
             HashMap<String ,Object> map=new HashMap<>();
             map.put("sortId",(i%9));
@@ -160,6 +165,19 @@ public class MainActivity extends AppCompatActivity
             maps.add(map);
         }
         BookDBHelper.addBooks(this,maps);
+
+        maps.clear();
+        for(int i=0;i<5;i++){
+            HashMap<String ,Object> map=new HashMap<>();
+            map.put("sortId",(i%9));
+            map.put("bookId","BAAA_"+(20000000+i));
+            map.put("bookName","测试预定书籍"+(i+1));
+            map.put("bookAllNum",10);
+            map.put("bookOutNum",0);
+            maps.add(map);
+        }
+        OrderDBHelper.addBooks(this,maps);
+
 
         Toast.makeText(MainActivity.this,"测试数据已经生成",Toast.LENGTH_SHORT).show();
     }
