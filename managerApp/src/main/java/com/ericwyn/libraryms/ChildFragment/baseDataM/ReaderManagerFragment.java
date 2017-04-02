@@ -10,12 +10,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.ericwyn.libraryms.R;
 import com.ericwyn.libraryms.dbUtil.dbHelper.BorrowDBHelper;
 import com.ericwyn.libraryms.dbUtil.dbHelper.ReaderDBHelper;
+import com.ericwyn.libraryms.updataDialog.UpdataReaderDialogBuilder;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +28,9 @@ import java.util.List;
 
 public class ReaderManagerFragment extends Fragment {
     private RecyclerView recyclerView;
-    private SimpleAdapter adapter;
+    private ArrayList<HashMap<String,Object>> dataList;
+    private ReaderManagerAdapter adapter;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -37,7 +39,9 @@ public class ReaderManagerFragment extends Fragment {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
 
-        recyclerView.setAdapter(new ReaderManagerAdapter(getActivity(),getData()));
+        dataList=getData();
+        adapter=new ReaderManagerAdapter(getActivity(),dataList);
+        recyclerView.setAdapter(adapter);
         return view;
     }
     private ArrayList<HashMap<String,Object>> getData(){
@@ -70,17 +74,20 @@ public class ReaderManagerFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(VH holder, int position) {
+        public void onBindViewHolder(VH holder, final int position) {
             final int readerId=(int)dataList.get(position).get("readerId");
             int borrowNum=(int)dataList.get(position).get("borrowNum");
             holder.readerId.setText(""+readerId);
             holder.borrowNum.setText(""+borrowNum);
-//            holder.cardView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Toast.makeText(getActivity(),readerId+"被点击",Toast.LENGTH_SHORT).show();
-//                }
-//            });
+            holder.constraintLayout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    UpdataReaderDialogBuilder dialogBuilder=
+                            new UpdataReaderDialogBuilder(getActivity(),dataList.get(position));
+                    dialogBuilder.show();
+
+                }
+            });
         }
 
         @Override
@@ -102,4 +109,10 @@ public class ReaderManagerFragment extends Fragment {
             }
         }
     }
+    public void updata(){
+        dataList.clear();
+        dataList.addAll(getData());
+        adapter.notifyDataSetChanged();
+    }
+
 }

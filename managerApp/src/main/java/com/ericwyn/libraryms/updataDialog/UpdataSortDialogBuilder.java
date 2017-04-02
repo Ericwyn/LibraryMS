@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ericwyn.libraryms.BaseDataManagerFragment;
 import com.ericwyn.libraryms.ChildFragment.baseDataM.SortManagerFragment;
 import com.ericwyn.libraryms.R;
 import com.ericwyn.libraryms.dbUtil.dbHelper.BookDBHelper;
@@ -82,7 +83,7 @@ public class UpdataSortDialogBuilder extends AlertDialog.Builder {
                 if(SortDBHelper.deleteSortById(mContext,deletList)==0
                         && BookDBHelper.deleteSortBySortId(mContext,deletList)==0){
                     Toast.makeText(mContext,"删除类别和书籍成功",Toast.LENGTH_SHORT).show();
-                    fragment.updata();
+                    BaseDataManagerFragment.updata();
                 }else {
                     Toast.makeText(mContext,"删除类别失败",Toast.LENGTH_LONG).show();
                 }

@@ -10,10 +10,12 @@
             android:id="@+id/nav_dataMaintain"
             android:icon="@drawable/ic_menu_gallery"
             android:title="基础数据维护"/>
-        <item
-            android:id="@+id/nav_borrowManager"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="图书借阅管理"/>
+
+        <!--<item-->
+            <!--android:id="@+id/nav_borrowManager"-->
+            <!--android:icon="@drawable/ic_menu_slideshow"-->
+            <!--android:title="图书借阅管理"/>-->
+
         <item
             android:id="@+id/nav_orderManager"
             android:icon="@drawable/ic_menu_manage"

@@ -123,7 +123,7 @@ public class BookManagerFragment extends Fragment {
         }
     }
 
-    public void updataData(){
+    public void updata(){
         dataList.clear();
         dataList.addAll(getData());
         adapter.notifyDataSetChanged();

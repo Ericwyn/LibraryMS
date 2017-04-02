@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ericwyn.libraryms.dbUtil.dbHelper.BookDBHelper;
+import com.ericwyn.libraryms.dbUtil.dbHelper.BorrowDBHelper;
 import com.ericwyn.libraryms.dbUtil.dbHelper.ReaderDBHelper;
 
 /**
@@ -33,7 +34,7 @@ public class MainFragment extends Fragment {
         allBookNum.setText(""+ BookDBHelper.searchAllBook(getActivity()).size());
         allReaderNum.setText(""+ ReaderDBHelper.searchAllReader(getActivity()).size());
         //这里是所有的书籍的数量
-        borrowBookNum.setText(""+BookDBHelper.searchAllBook(getActivity()).size());
+        borrowBookNum.setText(""+ BorrowDBHelper.searchArrBorrow(getActivity()).size());
 
         return view;
     }

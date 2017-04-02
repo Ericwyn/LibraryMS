@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.ericwyn.libraryms.BaseDataManagerFragment;
 import com.ericwyn.libraryms.R;
 import com.ericwyn.libraryms.dbUtil.dbHelper.BookDBHelper;
 import com.ericwyn.libraryms.dbUtil.dbHelper.SortDBHelper;
@@ -65,6 +66,7 @@ public class AddBookDialogBuilder extends AlertDialog.Builder {
                     maps.add(map);
                     if(BookDBHelper.addBooks(mContext,maps)!=-1){
                         Toast.makeText(mContext,"新增图书"+bookNameFlag+"数据成功",Toast.LENGTH_SHORT).show();
+                        BaseDataManagerFragment.updata();
                     }else {
                         Toast.makeText(mContext,"新增图书数据失败，请检查",Toast.LENGTH_SHORT).show();
                     }

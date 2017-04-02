@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
+import com.ericwyn.libraryms.BaseDataManagerFragment;
 import com.ericwyn.libraryms.R;
 import com.ericwyn.libraryms.dbUtil.dbHelper.ReaderDBHelper;
 
@@ -51,6 +52,7 @@ public class AddReaderDialogBuilder extends AlertDialog.Builder {
                         maps.add(map);
                         if(ReaderDBHelper.addReaders(mContext,maps)!=-1){
                             Toast.makeText(mContext,"新增读者"+readerIdFlag+"数据成功",Toast.LENGTH_SHORT).show();
+                            BaseDataManagerFragment.updata();
                         }else {
                             Toast.makeText(mContext,"新增读者数据失败，请检查",Toast.LENGTH_SHORT).show();
                         }

@@ -17,8 +17,6 @@ import java.util.HashMap;
 
 public class BorrowDBHelper {
     private static final String TABLE_NAME="borrowDB";
-
-
     /**
      * 增加一条借阅记录
      * @param context   上下文
@@ -119,6 +117,26 @@ public class BorrowDBHelper {
                     map.put("bookId",bookId);
                     maps.add(map);
                 }
+            }while (cursor.moveToNext());
+        }
+        cursor.close();
+        dbHelper.close();
+        return maps;
+    }
+
+    public static ArrayList<HashMap<String,Object>> searchArrBorrow(Context context){
+        ArrayList<HashMap<String,Object>> maps=new ArrayList<>();
+        DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+        Cursor cursor=db.query(TABLE_NAME,null,null,null,null,null,null);
+        if(cursor.moveToFirst()){
+            do{
+                    HashMap<String ,Object> map=new HashMap<>();
+                    String readerId=cursor.getString(cursor.getColumnIndex("readerId"));
+                    String bookId=cursor.getString(cursor.getColumnIndex("readerId"));
+                    map.put("readerId",readerId);
+                    map.put("bookId",bookId);
+                    maps.add(map);
             }while (cursor.moveToNext());
         }
         cursor.close();

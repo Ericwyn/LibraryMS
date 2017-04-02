@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
+import com.ericwyn.libraryms.BaseDataManagerFragment;
 import com.ericwyn.libraryms.R;
 import com.ericwyn.libraryms.dbUtil.dbHelper.SortDBHelper;
 
@@ -48,6 +49,7 @@ public class AddsortDialogBuilder extends AlertDialog.Builder {
                     maps.add(map);
                     if(SortDBHelper.addSorts(mContext,maps)==0){
                         Toast.makeText(mContext,"新增图书类别"+sortNameFlag+"成功",Toast.LENGTH_LONG).show();
+                        BaseDataManagerFragment.updata();
                     }else {
                         Toast.makeText(mContext,"新增图书类别失败，请检查",Toast.LENGTH_LONG).show();
                     }

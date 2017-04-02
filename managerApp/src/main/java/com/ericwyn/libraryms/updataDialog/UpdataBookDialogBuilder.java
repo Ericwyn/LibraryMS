@@ -73,7 +73,7 @@ public class UpdataBookDialogBuilder extends AlertDialog.Builder {
                     map.put("sortId",sortId);
                     if(BookDBHelper.chanceByBookId(mContext,bookIdFlag,map)!=-1){
                         Toast.makeText(mContext,"更新图书"+bookNameFlag+"数据成功",Toast.LENGTH_SHORT).show();
-                        fragment.updataData();
+                        fragment.updata();
                     }else {
                         Toast.makeText(mContext,"更新图书数据失败，请检查",Toast.LENGTH_SHORT).show();
                     }
@@ -101,7 +101,7 @@ public class UpdataBookDialogBuilder extends AlertDialog.Builder {
                 list.add(bookIdFlag);
                 if(BookDBHelper.deleteSortByBookId(mContext,list)==0){
                     Toast.makeText(mContext,"删除"+bookNameFlag+"数据成功",Toast.LENGTH_SHORT).show();
-                    fragment.updataData();
+                    fragment.updata();
                 }else {
                     Toast.makeText(mContext,"删除"+bookNameFlag+"数据失败",Toast.LENGTH_LONG).show();
 

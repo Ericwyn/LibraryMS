@@ -55,14 +55,20 @@ public class ReaderDBHelper{
      * @return  返回状态代码
      */
     public static int deleteReaderById(Context context,ArrayList<String> deleteReaderIds){
-        DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
-        SQLiteDatabase db=dbHelper.getWritableDatabase();
-        for(String id:deleteReaderIds){
-            db.delete(TABLE_NAME,"readerId = ?",new String[]{id});
+        try {
+            DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
+            SQLiteDatabase db=dbHelper.getWritableDatabase();
+            for(String id:deleteReaderIds){
+                db.delete(TABLE_NAME,"readerId = ?",new String[]{id});
+            }
+            db.close();
+            dbHelper.close();
+            return 0;
+        }catch (Exception e){
+            e.printStackTrace();
+            return -1;
         }
-        db.close();
-        dbHelper.close();
-        return 0;
+
     }
 
     /**
@@ -73,15 +79,21 @@ public class ReaderDBHelper{
      * @return  返回的状态
      */
     public static int chancePwByReaderId(Context context,String readerId,String newPw){
-        DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
-        SQLiteDatabase db=dbHelper.getWritableDatabase();
-        ContentValues values=new ContentValues();
-        values.put("readerPw",newPw);
-        db.update(TABLE_NAME,values,"readerId=?",new String[]{readerId});
-        values.clear();
-        db.close();
-        dbHelper.close();
-        return 0;
+        try {
+            DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
+            SQLiteDatabase db=dbHelper.getWritableDatabase();
+            ContentValues values=new ContentValues();
+            values.put("readerPw",newPw);
+            db.update(TABLE_NAME,values,"readerId=?",new String[]{readerId});
+            values.clear();
+            db.close();
+            dbHelper.close();
+            return 0;
+        }catch (Exception e){
+            e.printStackTrace();
+            return -1;
+        }
+
     }
 
 
