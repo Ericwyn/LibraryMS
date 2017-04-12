@@ -1,4 +1,4 @@
-package com.ericwyn.libraryms;
+package com.ericwyn.libraryms.managerApp.tabAdapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,13 +16,13 @@ import java.util.List;
  * Created by ericwyn on 17-4-2.
  */
 
-public class TabAdapter extends FragmentPagerAdapter {
+public class BaseDataMFragmentTabAdapter extends FragmentPagerAdapter {
     List<Fragment> fragmentList=new ArrayList<>();
     String[] titles={"读者管理","图书管理","类别管理"};
     ReaderManagerFragment readerManagerFragment=new ReaderManagerFragment();
     BookManagerFragment bookManagerFragment=new BookManagerFragment();
     SortManagerFragment sortManagerFragment=new SortManagerFragment();
-    public TabAdapter(FragmentManager fm){
+    public BaseDataMFragmentTabAdapter(FragmentManager fm){
         super(fm);
         fragmentList.add(readerManagerFragment);
         fragmentList.add(bookManagerFragment);
@@ -41,7 +41,7 @@ public class TabAdapter extends FragmentPagerAdapter {
         return fragmentList.size();
     }
 
-    public TabAdapter getTabAdapter(){
+    public BaseDataMFragmentTabAdapter getTabAdapter(){
         return this;
     }
 

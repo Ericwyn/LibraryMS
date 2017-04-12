@@ -9,7 +9,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/managerApp" />
-            <option value="$PROJECT_DIR$/studentapp" />
+            <option value="$PROJECT_DIR$/zbarcode" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

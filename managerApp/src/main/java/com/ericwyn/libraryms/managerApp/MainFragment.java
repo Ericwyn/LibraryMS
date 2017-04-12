@@ -1,4 +1,4 @@
-package com.ericwyn.libraryms;
+package com.ericwyn.libraryms.managerApp;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.ericwyn.libraryms.R;
 import com.ericwyn.libraryms.dbUtil.dbHelper.BookDBHelper;
 import com.ericwyn.libraryms.dbUtil.dbHelper.BorrowDBHelper;
 import com.ericwyn.libraryms.dbUtil.dbHelper.ReaderDBHelper;

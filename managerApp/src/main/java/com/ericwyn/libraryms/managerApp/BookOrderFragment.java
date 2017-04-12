@@ -1,4 +1,4 @@
-package com.ericwyn.libraryms;
+package com.ericwyn.libraryms.managerApp;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.ericwyn.libraryms.R;
 import com.ericwyn.libraryms.addDialog.AddOrderDialogBuilder;
 import com.ericwyn.libraryms.dbUtil.dbHelper.OrderDBHelper;
 import com.ericwyn.libraryms.dbUtil.dbHelper.SortDBHelper;
@@ -47,7 +48,7 @@ public class BookOrderFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AddOrderDialogBuilder dialogBuilder=new AddOrderDialogBuilder(getActivity());
+                AddOrderDialogBuilder dialogBuilder=new AddOrderDialogBuilder(getActivity(),getThis());
                 dialogBuilder.show();
             }
         });
@@ -139,6 +140,10 @@ public class BookOrderFragment extends Fragment {
         dataList.clear();
         dataList.addAll(getData());
         adapter.notifyDataSetChanged();
+    }
+
+    private BookOrderFragment getThis(){
+        return this;
     }
 
 }

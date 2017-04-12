@@ -1,4 +1,4 @@
-package com.ericwyn.libraryms;
+package com.ericwyn.libraryms.managerApp;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,9 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ericwyn.libraryms.R;
 import com.ericwyn.libraryms.addDialog.AddBookDialogBuilder;
 import com.ericwyn.libraryms.addDialog.AddReaderDialogBuilder;
 import com.ericwyn.libraryms.addDialog.AddsortDialogBuilder;
+import com.ericwyn.libraryms.managerApp.tabAdapter.BaseDataMFragmentTabAdapter;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 
@@ -29,7 +31,7 @@ public class BaseDataManagerFragment extends Fragment{
     private FloatingActionButton addASort;
     private FloatingActionButton addAReader;
     private FloatingActionButton addByScanner;
-    private static TabAdapter tabAdapter;
+    private static BaseDataMFragmentTabAdapter tabAdapter;
 
     @Nullable
     @Override
@@ -41,7 +43,7 @@ public class BaseDataManagerFragment extends Fragment{
         //初始化ViewPager
         viewPager=(ViewPager)view.findViewById(R.id.viewPager_baseDataManagerFragment);
         //新建TabAdapter，在Adapter里面绑定相应的Fragment试图
-        tabAdapter=new TabAdapter(getChildFragmentManager());
+        tabAdapter=new BaseDataMFragmentTabAdapter(getChildFragmentManager());
         //然后TabAdapter再和viewPager绑定
         viewPager.setAdapter(tabAdapter);
         viewPager.setOffscreenPageLimit(2);

@@ -1,4 +1,4 @@
-package com.ericwyn.libraryms;
+package com.ericwyn.libraryms.managerApp;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -15,6 +15,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ericwyn.libraryms.R;
 import com.ericwyn.libraryms.dbUtil.dbHelper.BookDBHelper;
 import com.ericwyn.libraryms.dbUtil.dbHelper.OrderDBHelper;
 import com.ericwyn.libraryms.dbUtil.dbHelper.SortDBHelper;

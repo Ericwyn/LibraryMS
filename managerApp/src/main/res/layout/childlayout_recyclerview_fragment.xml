@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    tools:context="com.ericwyn.libraryms.MainActivity">
+    tools:context="com.ericwyn.libraryms.managerApp.MainActivity">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_child_fragment"

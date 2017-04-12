@@ -13,7 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.ericwyn.libraryms.BaseDataManagerFragment;
+import com.ericwyn.libraryms.managerApp.BookOrderFragment;
 import com.ericwyn.libraryms.R;
 import com.ericwyn.libraryms.dbUtil.dbHelper.OrderDBHelper;
 import com.ericwyn.libraryms.dbUtil.dbHelper.SortDBHelper;
@@ -35,9 +35,12 @@ public class AddOrderDialogBuilder extends AlertDialog.Builder {
     private ArrayAdapter<String> adapter;
     private int sortId=-10086;
 
-    public AddOrderDialogBuilder(@NonNull Context context) {
+    private BookOrderFragment fragment;
+
+    public AddOrderDialogBuilder(@NonNull Context context, final BookOrderFragment fragment) {
         super(context);
         mContext=context;
+        this.fragment=fragment;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view=inflater.inflate(R.layout.add_book_dialog, null);
         this.setView(view);
@@ -66,7 +69,7 @@ public class AddOrderDialogBuilder extends AlertDialog.Builder {
                     maps.add(map);
                     if(OrderDBHelper.addBooks(mContext,maps)!=-1){
                         Toast.makeText(mContext,"新增图书"+bookNameFlag+"数据成功",Toast.LENGTH_SHORT).show();
-                        BaseDataManagerFragment.updata();
+                        fragment.updata();
                     }else {
                         Toast.makeText(mContext,"新增图书数据失败，请检查",Toast.LENGTH_SHORT).show();
                     }

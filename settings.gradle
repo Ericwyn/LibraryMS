@@ -1,1 +1,1 @@
-include ':managerApp', ':studentapp'
+include ':managerApp', ':zbarcode'

@@ -1,4 +1,4 @@
-package com.ericwyn.libraryms;
+package com.ericwyn.libraryms.managerApp;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.ericwyn.libraryms.R;
 import com.ericwyn.libraryms.dbUtil.DataBaseUtil;
 import com.ericwyn.libraryms.dbUtil.dbHelper.BookDBHelper;
 import com.ericwyn.libraryms.dbUtil.dbHelper.OrderDBHelper;
@@ -115,10 +116,11 @@ public class MainActivity extends AppCompatActivity
             BaseDataManagerFragment fragment=new BaseDataManagerFragment();
             switchFragment(mContent,fragment);
         }
-//        else if (id == R.id.nav_borrowManager) {
-//            setTitle("图书借阅管理");
-//
-//        }
+        else if (id == R.id.nav_borrowManager) {
+            setTitle("图书借阅管理");
+            BookBorrowFragment fragment=new BookBorrowFragment();
+            switchFragment(mContent,fragment);
+        }
         else if (id == R.id.nav_orderManager) {
             setTitle("新书订购管理");
             BookOrderFragment fragment=new BookOrderFragment();

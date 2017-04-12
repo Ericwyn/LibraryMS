@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
-import com.ericwyn.libraryms.BaseDataManagerFragment;
+import com.ericwyn.libraryms.managerApp.BaseDataManagerFragment;
 import com.ericwyn.libraryms.R;
 import com.ericwyn.libraryms.dbUtil.dbHelper.SortDBHelper;
 

@@ -13,7 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.ericwyn.libraryms.BaseDataManagerFragment;
+import com.ericwyn.libraryms.managerApp.BaseDataManagerFragment;
 import com.ericwyn.libraryms.R;
 import com.ericwyn.libraryms.dbUtil.dbHelper.BookDBHelper;
 import com.ericwyn.libraryms.dbUtil.dbHelper.SortDBHelper;
