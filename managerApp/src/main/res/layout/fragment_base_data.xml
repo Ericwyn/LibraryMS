@@ -2,9 +2,10 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:app="http://schemas.android.com/apk/res-auto"
              xmlns:tools="http://schemas.android.com/tools"
-             xmlns:fab="http://schemas.android.com/apk/res-auto"
              android:layout_width="match_parent"
-             android:layout_height="match_parent">
+             android:layout_height="match_parent"
+             xmlns:fab="http://schemas.android.com/apk/res-auto">
+
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -39,54 +40,56 @@
 
     <com.getbase.floatingactionbutton.FloatingActionsMenu
         android:id="@+id/fab_menu_basedataFragment"
-        app:layout_behavior=".ScrollAwareFABBehavior"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:fab_addButtonColorNormal="@color/accent"
-        app:fab_addButtonColorPressed="@color/accent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        app:layout_behavior=".ScrollAwareFABBehavior"
+        app:fab_addButtonColorNormal="@color/accent"
+        app:fab_addButtonColorPressed="@color/accent"
         app:fab_labelsPosition="left"
         fab:fab_icon="@drawable/ic_add_white_24dp"
         app:fab_labelStyle="@style/menu_labels_style">
         <!--<com.getbase.floatingactionbutton.FloatingActionButton-->
-            <!--android:id="@+id/fab_sanner_basedataFragent"-->
-            <!--app:layout_behavior=".ScrollAwareFABBehavior"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--app:fab_size="normal"-->
-            <!--app:fab_title="扫码录入"-->
-            <!--app:fab_colorNormal="@color/primary"-->
-            <!--app:fab_colorPressed="@color/primary_dark"-->
-            <!--app:fab_icon="@drawable/ic_add_a_photo_white_24dp"-->
-            <!--/>-->
+        <!--android:id="@+id/fab_sanner_basedataFragent"-->
+        <!--app:layout_behavior=".ScrollAwareFABBehavior"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:fab_size="normal"-->
+        <!--app:fab_title="扫码录入"-->
+        <!--app:fab_colorNormal="@color/primary"-->
+        <!--app:fab_colorPressed="@color/primary_dark"-->
+        <!--app:fab_icon="@drawable/ic_add_a_photo_white_24dp"-->
+        <!--/>-->
         <com.getbase.floatingactionbutton.FloatingActionButton
-            app:layout_behavior=".ScrollAwareFABBehavior"
             android:id="@+id/fab_newReader_basedataFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_behavior=".ScrollAwareFABBehavior"
             app:fab_size="normal"
             app:fab_title="新增读者数据"
             app:fab_colorNormal="@color/primary"
             app:fab_colorPressed="@color/primary_dark"
             app:fab_icon="@drawable/ic_reader_white_24dp"
             />
+
         <com.getbase.floatingactionbutton.FloatingActionButton
-            app:layout_behavior=".ScrollAwareFABBehavior"
             android:id="@+id/fab_newBook_basedataFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_behavior=".ScrollAwareFABBehavior"
             app:fab_size="normal"
             app:fab_title="新增图书数据"
             app:fab_colorNormal="@color/primary"
             app:fab_colorPressed="@color/primary_dark"
             app:fab_icon="@drawable/ic_book_white_24dp"
             />
+
         <com.getbase.floatingactionbutton.FloatingActionButton
-            app:layout_behavior=".ScrollAwareFABBehavior"
             android:id="@+id/fab_newSort_basedataFragment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            app:layout_behavior=".ScrollAwareFABBehavior"
             app:fab_size="normal"
             app:fab_title="新增类别数据"
             app:fab_colorNormal="@color/primary"
@@ -95,12 +98,12 @@
             />
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
     <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/fabutton_basedata_fragment"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="bottom|end"-->
-        <!--android:layout_margin="@dimen/fab_margin"-->
-        <!--app:rippleColor="@color/cardview_dark_background"-->
-        <!--app:srcCompat="@drawable/ic_add_white_24dp"/>-->
+    <!--android:id="@+id/fabutton_basedata_fragment"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="bottom|end"-->
+    <!--android:layout_margin="@dimen/fab_margin"-->
+    <!--app:rippleColor="@color/cardview_dark_background"-->
+    <!--app:srcCompat="@drawable/ic_add_white_24dp"/>-->
 
 </FrameLayout>

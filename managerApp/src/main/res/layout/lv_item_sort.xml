@@ -1,46 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--<android.support.v7.widget.CardView-->
-    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--xmlns:tools="http://schemas.android.com/tools"-->
-    <!--android:id="@+id/baseCV_sort_item"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="64dp"-->
-    <!--android:layout_marginBottom="8dp"-->
-    <!--android:layout_marginEnd="8dp"-->
-    <!--android:layout_marginLeft="8dp"-->
-    <!--android:layout_marginRight="8dp"-->
-    <!--android:layout_marginStart="8dp"-->
-    <!--android:layout_marginTop="8dp"-->
-    <!--android:clickable="true"-->
-    <!--android:stateListAnimator="@anim/touch_raise_item_cardview"-->
-    <!--app:layout_constraintBottom_toBottomOf="parent"-->
-    <!--app:layout_constraintHorizontal_bias="0.0"-->
-    <!--app:layout_constraintLeft_toLeftOf="parent"-->
-    <!--app:layout_constraintRight_toRightOf="parent"-->
-    <!--app:layout_constraintTop_toTopOf="parent">-->
+<!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--xmlns:tools="http://schemas.android.com/tools"-->
+<!--android:id="@+id/baseCV_sort_item"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="64dp"-->
+<!--android:layout_marginBottom="8dp"-->
+<!--android:layout_marginEnd="8dp"-->
+<!--android:layout_marginLeft="8dp"-->
+<!--android:layout_marginRight="8dp"-->
+<!--android:layout_marginStart="8dp"-->
+<!--android:layout_marginTop="8dp"-->
+<!--android:clickable="true"-->
+<!--android:stateListAnimator="@anim/touch_raise_item_cardview"-->
+<!--app:layout_constraintBottom_toBottomOf="parent"-->
+<!--app:layout_constraintHorizontal_bias="0.0"-->
+<!--app:layout_constraintLeft_toLeftOf="parent"-->
+<!--app:layout_constraintRight_toRightOf="parent"-->
+<!--app:layout_constraintTop_toTopOf="parent">-->
 
 <android.support.constraint.ConstraintLayout
-    android:clickable="true"
-    android:background="@drawable/ripple_bg"
-    android:id="@+id/conslayout_sort_item"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/conslayout_sort_item"
     android:layout_width="match_parent"
-    android:layout_height="64dp">
+    android:layout_height="64dp"
+    android:background="@drawable/ripple_bg"
+    android:clickable="true">
 
     <TextView
         android:id="@+id/sortId_sort_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:text="TextView"
+        android:layout_marginBottom="8dp"
         android:textSize="30sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.95"
@@ -48,19 +47,19 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.483"
+        android:text="TextView"
         tools:text="20"/>
 
     <TextView
         android:id="@+id/sortName_sort_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:textColor="?android:attr/textColorHint"
+        android:layout_marginBottom="8dp"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.03"
@@ -68,7 +67,8 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.5"
+        android:textColor="?android:attr/textColorHint"
         tools:text="类别名称"/>
 </android.support.constraint.ConstraintLayout>
 
-<!--</android.support.v7.widget.CardView>-->
+    <!--</android.support.v7.widget.CardView>-->

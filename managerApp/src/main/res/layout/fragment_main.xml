@@ -5,6 +5,7 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              tools:context="com.ericwyn.libraryms.managerApp.MainFragment">
+
     <android.support.constraint.ConstraintLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
@@ -14,16 +15,16 @@
         tools:showIn="@layout/app_bar_main">
 
         <android.support.v7.widget.CardView
-            android:clickable="true"
-            android:foreground="?android:attr/selectableItemBackground"
             android:id="@+id/cv_AllBookNum"
             android:layout_width="0dp"
             android:layout_height="150dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginTop="16dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -36,12 +37,12 @@
                     android:id="@+id/tv_allBookNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
                     android:layout_marginLeft="40dp"
-                    android:layout_marginRight="8dp"
                     android:layout_marginStart="40dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:textSize="72sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -53,34 +54,34 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="图书登记总数"
+                    android:layout_marginBottom="8dp"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginLeft="8dp"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintHorizontal_bias="0.7"/>
+                    app:layout_constraintHorizontal_bias="0.7"
+                    android:text="图书登记总数"/>
 
             </android.support.constraint.ConstraintLayout>
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
-            android:clickable="true"
-            android:foreground="?android:attr/selectableItemBackground"
             android:id="@+id/cardView"
             android:layout_width="0dp"
             android:layout_height="150dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginTop="16dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -94,12 +95,12 @@
                     android:id="@+id/tv_allReaderNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
                     android:layout_marginLeft="40dp"
-                    android:layout_marginRight="8dp"
                     android:layout_marginStart="40dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:textSize="72sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -111,33 +112,33 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="读者登记总数"
+                    android:layout_marginBottom="8dp"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginLeft="8dp"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintHorizontal_bias="0.7"/>
+                    app:layout_constraintHorizontal_bias="0.7"
+                    android:text="读者登记总数"/>
 
             </android.support.constraint.ConstraintLayout>
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
-            android:clickable="true"
-            android:foreground="?android:attr/selectableItemBackground"
             android:layout_width="0dp"
             android:layout_height="150dp"
-            android:layout_marginEnd="8dp"
             android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginTop="16dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:clickable="true"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cardView">
@@ -150,12 +151,12 @@
                     android:id="@+id/tv_borrowBookNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
                     android:layout_marginLeft="40dp"
-                    android:layout_marginRight="8dp"
                     android:layout_marginStart="40dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginRight="8dp"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:textSize="72sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
@@ -167,26 +168,24 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
-                    android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
-                    android:text="外借图书数量"
+                    android:layout_marginBottom="8dp"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginLeft="8dp"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintHorizontal_bias="0.7"/>
+                    app:layout_constraintHorizontal_bias="0.7"
+                    android:text="外借图书数量"/>
 
             </android.support.constraint.ConstraintLayout>
         </android.support.v7.widget.CardView>
 
     </android.support.constraint.ConstraintLayout>
-
-
 
 
     <!--&lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->

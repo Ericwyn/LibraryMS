@@ -12,36 +12,36 @@
         android:id="@+id/tital_success_checkDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="@color/accent"
         android:textSize="24sp"
         tools:layout_editor_absoluteX="24dp"
-        tools:layout_editor_absoluteY="8dp"/>
+        tools:layout_editor_absoluteY="8dp"
+        android:textColor="@color/accent"
+        android:text="TextView"/>
 
     <TextView
         android:id="@+id/text_success_checkDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         android:textSize="18sp"
         tools:layout_editor_absoluteX="24dp"
-        tools:layout_editor_absoluteY="44dp"/>
+        tools:layout_editor_absoluteY="44dp"
+        android:text="TextView"/>
 
     <TextView
         android:id="@+id/tital_fail_checkDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="@color/accent"
         android:textSize="24sp"
         tools:layout_editor_absoluteX="24dp"
-        tools:layout_editor_absoluteY="90dp"/>
+        tools:layout_editor_absoluteY="90dp"
+        android:textColor="@color/accent"
+        android:text="TextView"/>
 
     <TextView
         android:id="@+id/text_fial_checkDialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
         tools:layout_editor_absoluteX="24dp"
-        tools:layout_editor_absoluteY="127dp"/>
+        tools:layout_editor_absoluteY="127dp"
+        android:text="TextView"/>
 </android.support.constraint.ConstraintLayout>
