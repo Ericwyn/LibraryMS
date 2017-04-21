@@ -1,4 +1,4 @@
-package com.ericwyn.libraryms.addDialog;
+package com.ericwyn.libraryms.Dialog;
 
 import android.content.Context;
 import android.content.DialogInterface;

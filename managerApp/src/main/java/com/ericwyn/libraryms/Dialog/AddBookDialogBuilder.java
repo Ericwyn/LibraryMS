@@ -1,4 +1,4 @@
-package com.ericwyn.libraryms.addDialog;
+package com.ericwyn.libraryms.Dialog;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -13,9 +13,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.ericwyn.libraryms.managerApp.BookOrderFragment;
+import com.ericwyn.libraryms.managerApp.BaseDataManagerFragment;
 import com.ericwyn.libraryms.R;
-import com.ericwyn.libraryms.dbUtil.dbHelper.OrderDBHelper;
+import com.ericwyn.libraryms.dbUtil.dbHelper.BookDBHelper;
 import com.ericwyn.libraryms.dbUtil.dbHelper.SortDBHelper;
 
 import java.util.ArrayList;
@@ -26,7 +26,7 @@ import java.util.HashMap;
  * Created by ericwyn on 17-3-31.
  */
 
-public class AddOrderDialogBuilder extends AlertDialog.Builder {
+public class AddBookDialogBuilder extends AlertDialog.Builder {
     private Context mContext;
     private TextInputLayout bookId;
     private TextInputLayout bookName;
@@ -35,17 +35,14 @@ public class AddOrderDialogBuilder extends AlertDialog.Builder {
     private ArrayAdapter<String> adapter;
     private int sortId=-10086;
 
-    private BookOrderFragment fragment;
-
-    public AddOrderDialogBuilder(@NonNull Context context, final BookOrderFragment fragment) {
+    public AddBookDialogBuilder(@NonNull Context context) {
         super(context);
         mContext=context;
-        this.fragment=fragment;
         LayoutInflater inflater = LayoutInflater.from(context);
         View view=inflater.inflate(R.layout.add_book_dialog, null);
         this.setView(view);
         //设置标题
-        super.setTitle("新增书籍订购");
+        super.setTitle("新增书籍");
 
         //设置积极按钮
         super.setPositiveButton("确定", new DialogInterface.OnClickListener() {
@@ -67,9 +64,9 @@ public class AddOrderDialogBuilder extends AlertDialog.Builder {
                     map.put("bookOutNum",0);
                     map.put("sortId",sortId);
                     maps.add(map);
-                    if(OrderDBHelper.addBooks(mContext,maps)!=-1){
+                    if(BookDBHelper.addBooks(mContext,maps)!=-1){
                         Toast.makeText(mContext,"新增图书"+bookNameFlag+"数据成功",Toast.LENGTH_SHORT).show();
-                        fragment.updata();
+                        BaseDataManagerFragment.updata();
                     }else {
                         Toast.makeText(mContext,"新增图书数据失败，请检查",Toast.LENGTH_SHORT).show();
                     }

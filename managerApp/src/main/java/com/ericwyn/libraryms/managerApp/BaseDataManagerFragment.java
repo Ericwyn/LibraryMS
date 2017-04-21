@@ -10,9 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ericwyn.libraryms.R;
-import com.ericwyn.libraryms.addDialog.AddBookDialogBuilder;
-import com.ericwyn.libraryms.addDialog.AddReaderDialogBuilder;
-import com.ericwyn.libraryms.addDialog.AddsortDialogBuilder;
+import com.ericwyn.libraryms.Dialog.AddBookDialogBuilder;
+import com.ericwyn.libraryms.Dialog.AddReaderDialogBuilder;
+import com.ericwyn.libraryms.Dialog.AddsortDialogBuilder;
 import com.ericwyn.libraryms.managerApp.tabAdapter.BaseDataMFragmentTabAdapter;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;

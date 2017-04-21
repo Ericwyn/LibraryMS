@@ -148,7 +148,8 @@ public class BookDBHelper {
     }
 
     /**
-     * 因为使用之前已经经过了一次剩余检验，所以默认不会再检验一次,更新书籍的编号
+     * 书籍数量-1=借书数量+1
+     * 因为使用之前已经经过了一次剩余检验，所以默认不会再检验一次,更新书籍的存货量
      * @param context   上下文
      * @param bookId    书籍id
      * @return  返回状态码
@@ -162,14 +163,33 @@ public class BookDBHelper {
         ContentValues values=new ContentValues();
 //        values.put("boolId",bookId);
         values.put("bookOutNum",bookOutNum);
-        db.update(TABLE_NAME,values,"readerId=?",new String[]{bookId});
+        db.update(TABLE_NAME,values,"bookId=?",new String[]{bookId});
         values.clear();
         db.close();
         dbHelper.close();
         return 0;
     }
 
-
+    /**
+     * 书籍数量+1=借书数量-1
+     * @param context 上下文
+     * @param bookId  书籍id
+     * @return  返回状态码
+     */
+    public static int returnABookId(Context context,String bookId){
+        DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
+        SQLiteDatabase db=dbHelper.getWritableDatabase();
+//        int bookId      =(int)bookNewMap.get("bookId");
+        int bookOutNum =bookOutNum(context,bookId)-1;
+        ContentValues values=new ContentValues();
+//        values.put("boolId",bookId);
+        values.put("bookOutNum",bookOutNum);
+        db.update(TABLE_NAME,values,"bookId=?",new String[]{bookId});
+        values.clear();
+        db.close();
+        dbHelper.close();
+        return 0;
+    }
 
 
     /**

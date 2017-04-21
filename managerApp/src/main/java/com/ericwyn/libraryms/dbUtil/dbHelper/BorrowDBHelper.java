@@ -124,6 +124,11 @@ public class BorrowDBHelper {
         return maps;
     }
 
+    /**
+     * 查询所有的借阅
+     * @param context
+     * @return
+     */
     public static ArrayList<HashMap<String,Object>> searchArrBorrow(Context context){
         ArrayList<HashMap<String,Object>> maps=new ArrayList<>();
         DbHelper dbHelper=new DbHelper(context,DbHelper.DB_NAME,null,1);
@@ -133,7 +138,7 @@ public class BorrowDBHelper {
             do{
                     HashMap<String ,Object> map=new HashMap<>();
                     String readerId=cursor.getString(cursor.getColumnIndex("readerId"));
-                    String bookId=cursor.getString(cursor.getColumnIndex("readerId"));
+                    String bookId=cursor.getString(cursor.getColumnIndex("bookId"));
                     map.put("readerId",readerId);
                     map.put("bookId",bookId);
                     maps.add(map);

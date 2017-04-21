@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ericwyn.libraryms.R;
-import com.ericwyn.libraryms.addDialog.AddOrderDialogBuilder;
+import com.ericwyn.libraryms.Dialog.AddOrderDialogBuilder;
 import com.ericwyn.libraryms.dbUtil.dbHelper.OrderDBHelper;
 import com.ericwyn.libraryms.dbUtil.dbHelper.SortDBHelper;
 

@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ericwyn.libraryms.R;
-import com.znq.zbarcode.CaptureActivity;
 
 /**
  * 借还书服务的Fragment
@@ -23,7 +22,7 @@ public class borrowServiceFragment extends Fragment {
     private static final int QR_CODE=10086;
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.borrowservice,container,false);
 
         borrowService=(CardView)view.findViewById(R.id.cv_borrowService_borrowServiceFragmeng);
@@ -32,15 +31,23 @@ public class borrowServiceFragment extends Fragment {
         borrowService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent1 = new Intent(getActivity(), CaptureActivity.class);
-                startActivityForResult(intent1, QR_CODE);
+                Intent intent=new Intent(getContext(),BorrowActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putString("service","borrow");
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
-
+//        Intent intent1 = new Intent(getActivity(), CaptureActivity.class);
+//        startActivityForResult(intent1, QR_CODE);
         returnService.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent=new Intent(getContext(),BorrowActivity.class);
+                Bundle bundle=new Bundle();
+                bundle.putString("service","return");
+                intent.putExtras(bundle);
+                startActivity(intent);
             }
         });
 
