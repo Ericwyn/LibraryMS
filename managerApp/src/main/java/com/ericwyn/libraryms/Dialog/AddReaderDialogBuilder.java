@@ -27,7 +27,11 @@ public class AddReaderDialogBuilder extends AlertDialog.Builder {
     private TextInputLayout readerPw;
     private TextInputLayout readerPwEnsure;
 
-    public AddReaderDialogBuilder(@NonNull Context context) {
+    public AddReaderDialogBuilder(@NonNull Context context){
+        this(context,"aaa");
+    }
+
+    public AddReaderDialogBuilder(@NonNull Context context,String readerIdScan) {
         super(context);
         mContext=context;
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -35,7 +39,9 @@ public class AddReaderDialogBuilder extends AlertDialog.Builder {
         this.setView(view);
         //设置标题
         super.setTitle("新增读者");
-
+        if(!readerIdScan.equals("aaa")){
+            readerId.getEditText().setText(readerIdScan);
+        }
         //设置积极按钮
         super.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override

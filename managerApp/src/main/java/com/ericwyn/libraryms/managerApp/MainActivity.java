@@ -1,5 +1,6 @@
 package com.ericwyn.libraryms.managerApp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -29,6 +30,16 @@ public class MainActivity extends AppCompatActivity
 
     private Fragment mContent;
     private FragmentManager fragmentManager=getSupportFragmentManager();
+
+    public static String readerIdScanFlagForFragment="";
+    public static String bookIdScanFlagForFragment="";
+
+    MainFragment mainFragment=new MainFragment();
+    BaseDataManagerFragment baseDataManagerFragment=new BaseDataManagerFragment();
+    BookBorrowFragment bookBorrowFragment=new BookBorrowFragment();
+    BookOrderFragment bookOrderfragment=new BookOrderFragment();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,23 +120,18 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.nav_main) {
             setTitle("系统概括");
-            MainFragment fragment=new MainFragment();
-            switchFragment(mContent,fragment);
+            switchFragment(mContent,mainFragment);
         } else if (id == R.id.nav_dataMaintain) {
             setTitle("基础数据维护");
-            BaseDataManagerFragment fragment=new BaseDataManagerFragment();
-            switchFragment(mContent,fragment);
+            switchFragment(mContent,baseDataManagerFragment);
         }
         else if (id == R.id.nav_borrowManager) {
             setTitle("图书借阅管理");
-            BookBorrowFragment fragment=new BookBorrowFragment();
-            switchFragment(mContent,fragment);
+            switchFragment(mContent,bookBorrowFragment);
         }
         else if (id == R.id.nav_orderManager) {
             setTitle("新书订购管理");
-            BookOrderFragment fragment=new BookOrderFragment();
-            switchFragment(mContent,fragment);
-
+            switchFragment(mContent,bookOrderfragment);
         } else if (id == R.id.nav_introduction) {
             dbini();
         } else if (id == R.id.nav_authod) {
@@ -195,4 +201,32 @@ public class MainActivity extends AppCompatActivity
             }
         }
     }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (resultCode) {
+            case 111:
+                Bundle bundle = data.getExtras();
+                String info = bundle.getString("readerId");
+                readerIdScanFlagForFragment=info;
+                baseDataManagerFragment.scanerreaderId(info);
+                Toast.makeText(this,info,Toast.LENGTH_SHORT).show();
+                break;
+            case 222:
+                Bundle bundle1 = data.getExtras();
+                String info1 = bundle1.getString("bookId");
+                bookIdScanFlagForFragment=info1;
+                baseDataManagerFragment.scanerBookId(bookIdScanFlagForFragment);
+
+                Toast.makeText(this,info1,Toast.LENGTH_SHORT).show();
+//                ArrayList<String> list=CaptureActivity.bookIdList;
+//                for (int i=0;i<list.size();i++){
+//                    bookIds[i].setText(list.get(i));
+//                }
+//                list.clear();
+                break;
+            default:
+                break;
+        }
+    }
+
 }

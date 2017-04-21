@@ -66,9 +66,15 @@ public class BookOrderDialogBuilder extends AlertDialog.Builder {
                     if(OrderDBHelper.deleteSortByBookId(mContext,deleteIdList)==0){
                         Toast.makeText(mContext,"书籍验收完成，已经收录数据库",Toast.LENGTH_LONG).show();
                         fragment.updata();
+                        if(BaseDataManagerFragment.tabAdapter!=null){
+                            BaseDataManagerFragment.updata();
+                        }
                     }else {
                         Toast.makeText(mContext,"验收失败书籍已经收录数据库，但无法从Order表删除",Toast.LENGTH_LONG).show();
                         fragment.updata();
+                        if(BaseDataManagerFragment.tabAdapter!=null){
+                            BaseDataManagerFragment.updata();
+                        }
                     }
                 }else {
                     Toast.makeText(mContext,"书籍验收失败，无法收录数据库",Toast.LENGTH_LONG).show();

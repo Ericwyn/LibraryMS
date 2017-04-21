@@ -440,19 +440,4 @@ public class CaptureActivity extends Activity implements SurfaceHolder.Callback 
         }
 
     }
-
-    //返回一系列结果
-    private void activityResult2(String result) {
-//        if (!isFinishing()) {
-//            Bundle bundle = new Bundle();
-//            Intent resultIntent = new Intent(this, ResultsActivity.class);
-//            bundle.putInt("width", mCropRect.width());
-//            bundle.putInt("height", mCropRect.height());
-//            bundle.putString(EXTRA_STRING, result);
-//            resultIntent.putExtras(bundle);
-//            startActivity(resultIntent);
-//            CaptureActivity.this.finish();
-//        }
-
-    }
 }

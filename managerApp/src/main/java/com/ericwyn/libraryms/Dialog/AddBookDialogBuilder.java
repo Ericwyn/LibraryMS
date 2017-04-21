@@ -35,7 +35,11 @@ public class AddBookDialogBuilder extends AlertDialog.Builder {
     private ArrayAdapter<String> adapter;
     private int sortId=-10086;
 
-    public AddBookDialogBuilder(@NonNull Context context) {
+    public AddBookDialogBuilder(@NonNull Context context){
+        this(context,"no");
+    }
+
+    public AddBookDialogBuilder(@NonNull Context context,String bookIdScan) {
         super(context);
         mContext=context;
         LayoutInflater inflater = LayoutInflater.from(context);
@@ -43,7 +47,9 @@ public class AddBookDialogBuilder extends AlertDialog.Builder {
         this.setView(view);
         //设置标题
         super.setTitle("新增书籍");
-
+        if(!bookIdScan.equals("no")){
+            bookId.getEditText().setText(bookIdScan);
+        }
         //设置积极按钮
         super.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override

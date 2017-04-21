@@ -49,17 +49,17 @@
         app:fab_labelsPosition="left"
         fab:fab_icon="@drawable/ic_add_white_24dp"
         app:fab_labelStyle="@style/menu_labels_style">
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_sanner_basedataFragent"
-            app:layout_behavior=".ScrollAwareFABBehavior"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fab_size="normal"
-            app:fab_title="扫码录入"
-            app:fab_colorNormal="@color/primary"
-            app:fab_colorPressed="@color/primary_dark"
-            app:fab_icon="@drawable/ic_add_a_photo_white_24dp"
-            />
+        <!--<com.getbase.floatingactionbutton.FloatingActionButton-->
+            <!--android:id="@+id/fab_sanner_basedataFragent"-->
+            <!--app:layout_behavior=".ScrollAwareFABBehavior"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:fab_size="normal"-->
+            <!--app:fab_title="扫码录入"-->
+            <!--app:fab_colorNormal="@color/primary"-->
+            <!--app:fab_colorPressed="@color/primary_dark"-->
+            <!--app:fab_icon="@drawable/ic_add_a_photo_white_24dp"-->
+            <!--/>-->
         <com.getbase.floatingactionbutton.FloatingActionButton
             app:layout_behavior=".ScrollAwareFABBehavior"
             android:id="@+id/fab_newReader_basedataFragment"
