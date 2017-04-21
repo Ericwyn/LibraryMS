@@ -97,7 +97,6 @@ public class BaseDataManagerFragment extends Fragment{
 
                 startActivityForResult(intent,1);
 
-
             }
         });
 
